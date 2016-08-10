@@ -1,0 +1,14 @@
+PODS:
+  - TimedSilver (0.0.1)
+
+DEPENDENCIES:
+  - TimedSilver (from `../`)
+
+EXTERNAL SOURCES:
+  TimedSilver:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TimedSilver: b300f127802ae3a0f2ca63fbedc3d57652cb0b37
+
+COCOAPODS: 0.39.0
