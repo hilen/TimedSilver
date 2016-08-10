@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/hilen/TimedSilver"
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { "Hilen" => "hilenkz@gmail.com" }
-  s.source           = { :git => "https://github.com/hilen/TimedSilver.git", :commit => '5051b61b789588e87384e8c1d92c5d8f7eff9f2a' }
+  s.source           = { :git => "https://github.com/hilen/TimedSilver.git", :tag => s.version.to_s }
   s.ios.deployment_target = "8.0"
   s.requires_arc = true
   s.platform     = :ios, "8.0"
