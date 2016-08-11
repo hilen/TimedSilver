@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'Example', :exclusive => true do
+target 'Example' do
   pod 'TimedSilver', :path => '../'
 end

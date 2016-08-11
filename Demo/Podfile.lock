@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  TimedSilver: b300f127802ae3a0f2ca63fbedc3d57652cb0b37
+  TimedSilver: 5466438301f4c6a90ce02cf7c601d8c03a817976
 
 COCOAPODS: 0.39.0
