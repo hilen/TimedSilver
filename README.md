@@ -39,11 +39,14 @@ end
 │   ├── Double+TSExtension.swift
 │   ├── String+TSCrypto.swift
 │   └── String+TSExtension.swift
+├── TimedSilverHeader.h
 ├── TimedSilverHelper.swift
 └── UIKit
+    ├── UIAlertController+TSExtension.swift
     ├── UIApplication+TSExtension.swift
     ├── UIButton+TSExtension.swift
     ├── UICollectionView+TSExtension.swift
+    ├── UICollectionView+TSGeneric.swift
     ├── UIColor+TSExtension.swift
     ├── UIControl+TSExtension.swift
     ├── UIControl+TSSound.swift
@@ -62,6 +65,7 @@ end
     ├── UIScrollView+TSPage.swift
     ├── UISearchBar+TSExtension.swift
     ├── UITableView+TSExtension.swift
+    ├── UITableView+TSGeneric.swift
     ├── UITableView+TSiOS7SettingStyle.swift
     ├── UIView+TSExtension.swift
     ├── UIView+TSFrame.swift
