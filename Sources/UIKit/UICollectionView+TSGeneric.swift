@@ -1,6 +1,7 @@
 //
 //  UICollectionView+TSGeneric.swift
 //  TimedSilver
+//  Source: https://github.com/hilen/TimedSilver
 //
 //  Created by Hilen on 8/22/16.
 //  Copyright © 2016 Hilen. All rights reserved.
@@ -8,7 +9,7 @@
 
 import UIKit
 
-extension UICollectionView {
+public extension UICollectionView {
     
     // MARK: - Cell register and reuse
     /**
