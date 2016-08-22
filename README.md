@@ -1,27 +1,22 @@
 # TimedSilver
 All about swift extension 😉
 
+
 ## Installation
-```
+
+```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'TimedSilver'
-```
-
-If your CocoaPods Version > 1.0.0, you needs add Target name like this:
-```
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-target ‘<Your Target Name>’ do
+target 'YourApp' do
     pod 'TimedSilver'
 end
 ```
 
-## Directory tree
+## Documentation
+[See the detail API documentation](http://cocoadocs.org/docsets/TimedSilver/0.1/index.html)
+
 ```
 ├── Foundation
 │   ├── NSBundle+TSExtension.swift

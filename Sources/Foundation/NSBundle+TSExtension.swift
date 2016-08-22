@@ -7,12 +7,15 @@
 //  Copyright © 2016 Hilen. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension NSBundle {
     /// The app's name
-    public static var ts_appName: String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
+    public static var ts_appName: String? {
+        guard let name =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String else {
+            return nil
+        }
+        return name
     }
     
     /// The app's version
@@ -40,5 +43,28 @@ public extension NSBundle {
         let version = ts_appVersion, build = ts_appBuild
         return version == build ? "v\(version)" : "v\(version)(\(build))"
     }
+    
+    /// App's icon file path
+    public class var ts_iconFilePath: String {
+        let iconFilename = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleIconFile")
+        let iconBasename = (iconFilename as! NSString).stringByDeletingPathExtension
+        let iconExtension = (iconFilename as! NSString).pathExtension
+        return NSBundle.mainBundle().pathForResource(iconBasename, ofType: iconExtension)!
+    }
+    
+    /**
+     App's icon image
+     
+     - returns: UIImage
+     */
+    public class func ts_iconImage() -> UIImage? {
+        guard let image = UIImage(contentsOfFile:self.ts_iconFilePath) else {
+            return nil
+        }
+        return image
+    }
+    
 }
+
+
 

@@ -64,44 +64,6 @@ public extension UICollectionView {
             }
         })
     }
-    
-    /**
-     Register nib
-     
-     - parameter aClass: class
-     */
-    func ts_registerCellNib<T: UICollectionViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forCellWithReuseIdentifier: name)
-    }
-    
-    /**
-     Register class
-     
-     - parameter aClass: class
-     */
-    func ts_registerCellClass<T: UICollectionViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forCellWithReuseIdentifier: name)
-    }
-    
-    /**
-     Reusable Cell
-     
-     - parameter aClass:    class
-     - parameter indexPath: indexPath
-     
-     - returns: cell
-     */
-    func ts_dequeueReusableCell<T: UICollectionViewCell>(aClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T! {
-        let name = String(aClass)
-        guard let cell = dequeueReusableCellWithReuseIdentifier(name, forIndexPath: indexPath) as? T else {
-            fatalError("\(name) is not registed")
-        }
-        return cell
-    }
- 
 }
 
 

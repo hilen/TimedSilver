@@ -12,7 +12,8 @@ import UIKit
 
 public extension UIView {
     /**
-     When the view should call init from nib
+     Init from nib
+     Notice: The nib file name is the same as the calss name
      
      - returns: UINib
      */
@@ -25,6 +26,18 @@ public extension UIView {
         return UINib(nibName: self.ts_className, bundle:nil)
     }
     
+    /**
+     Init from nib and get the view
+     Notice: The nib file name is the same as the calss name
+     
+     - parameter aClass: your class
+     
+     - returns: Your class's view
+     */
+    class func ts_viewFromNib<T>(aClass: T.Type) -> T {
+        return self.ts_Nib().instantiateWithOwner(nil, options: nil)[0] as! T
+    }
+
     /**
      All subviews of the UIView
      

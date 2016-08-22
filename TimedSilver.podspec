@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "TimedSilver"
-  s.version          = "0.1"
+  s.version          = "0.1.1"
   s.summary          = "TimedSilver: A collection of swift extensions."
   s.description      = <<-DESC
                        All about swift extension, a collection of useful Swift extensions extending iOS Frameworks such as Foundation, UIKit, swift struct and so on. This would help you to quickly build your swift applications.

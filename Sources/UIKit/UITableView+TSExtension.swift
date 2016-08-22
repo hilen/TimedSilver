@@ -78,42 +78,6 @@ public extension UITableView {
             }
         })
     }
-    
-    /**
-     Register nib
-     
-     - parameter aClass: class
-     */
-    func ts_registerCellNib<T: UITableViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forCellReuseIdentifier: name)
-    }
-    
-    /**
-     Register class
-     
-     - parameter aClass: class
-     */
-    func ts_registerCellClass<T: UITableViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forCellReuseIdentifier: name)
-    }
-    
-    /**
-     Reusable Cell
-     
-     - parameter aClass:    class
-     
-     - returns: cell
-     */
-    func ts_dequeueReusableCell<T: UITableViewCell>(aClass: T.Type) -> T! {
-        let name = String(aClass)
-        guard let cell = dequeueReusableCellWithIdentifier(name) as? T else {
-            fatalError("\(name) is not registed")
-        }
-        return cell
-    }
 }
 
 
