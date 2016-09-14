@@ -43,11 +43,11 @@ extension UIScrollView {
      - parameter page:     Page number
      - parameter animated: Animated
      */
-    public func ts_setPageX(page: Int, animated: Bool? = nil) {
+    public func ts_setPageX(_ page: Int, animated: Bool? = nil) {
         let pageWidth = self.frame.size.width;
         let offsetY = self.contentOffset.y;
         let offsetX = CGFloat(page) * pageWidth;
-        let offset = CGPointMake(offsetX, offsetY);
+        let offset = CGPoint(x: offsetX, y: offsetY);
         if animated == nil {
             self.setContentOffset(offset, animated: false)
         } else {
@@ -61,11 +61,11 @@ extension UIScrollView {
      - parameter page:     Page number
      - parameter animated: Animated
      */
-    public func ts_setPageY(page: Int, animated: Bool? = nil) {
+    public func ts_setPageY(_ page: Int, animated: Bool? = nil) {
         let pageHeight = self.frame.size.height;
         let offsetX = self.contentOffset.x;
         let offsetY = CGFloat(page) * pageHeight;
-        let offset = CGPointMake(offsetX, offsetY);
+        let offset = CGPoint(x: offsetX, y: offsetY);
         if animated == nil {
             self.setContentOffset(offset, animated: false)
         } else {

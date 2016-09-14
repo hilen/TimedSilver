@@ -16,12 +16,12 @@ public extension UIButton {
      - parameter color:    color
      - parameter forState: UIControlState
      */
-    public func ts_setBackgroundColor(color: UIColor, forState: UIControlState) {
+    public func ts_setBackgroundColor(_ color: UIColor, forState: UIControlState) {
         UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), color.CGColor)
-        CGContextFillRect(UIGraphicsGetCurrentContext(), CGRect(x: 0, y: 0, width: 1, height: 1))
+        UIGraphicsGetCurrentContext()?.setFillColor(color.cgColor)
+        UIGraphicsGetCurrentContext()?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
         let theImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        self.setBackgroundImage(theImage, forState: forState)
+        self.setBackgroundImage(theImage, for: forState)
     }
 }

@@ -12,7 +12,7 @@
 
 import Foundation
 
-public extension NSNotificationCenter {
+public extension NotificationCenter {
     /**
      NSNotificationCenter with closure
      
@@ -24,9 +24,9 @@ public extension NSNotificationCenter {
      
      - returns: AnyObject
      */
-    func ts_addObserver<T: AnyObject>(observer: T, name aName: String?, object anObject: AnyObject?, queue: NSOperationQueue? = NSOperationQueue.mainQueue(), handler: (observer: T, notification: NSNotification) -> Void) -> AnyObject {
-        let observation = addObserverForName(aName, object: anObject, queue: queue) { [unowned observer] note in
-            handler(observer: observer, notification: note)
+    func ts_addObserver<T: AnyObject>(_ observer: T, name aName: String?, object anObject: AnyObject?, queue: OperationQueue? = OperationQueue.main, handler: @escaping (_ observer: T, _ notification: Notification) -> Void) -> AnyObject {
+        let observation = addObserver(forName: aName.map { NSNotification.Name(rawValue: $0) }, object: anObject, queue: queue) { [unowned observer] note in
+            handler(observer, note)
         }
         
         TSObservationRemover(observation).makeRetainedBy(observer)
@@ -43,21 +43,21 @@ private class TSObservationRemover: NSObject {
         super.init()
     }
     
-    func makeRetainedBy(owner: AnyObject) {
-        ts_observationRemoversForObject(owner).addObject(self)
+    func makeRetainedBy(_ owner: AnyObject) {
+        ts_observationRemoversForObject(owner).add(self)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(observation)
+        NotificationCenter.default.removeObserver(observation)
     }
 }
 
-private var TSObservationRemoverKey: UnsafePointer<Void> = nil
+private var TSObservationRemoverKey: UnsafeRawPointer? = nil
 
-private func ts_observationRemoversForObject(object: AnyObject) -> NSMutableArray {
+private func ts_observationRemoversForObject(_ object: AnyObject) -> NSMutableArray {
     if TSObservationRemoverKey == nil {
-        withUnsafePointer(&TSObservationRemoverKey) { pointer in
-            TSObservationRemoverKey = UnsafePointer<Void>(pointer)
+        withUnsafePointer(to: &TSObservationRemoverKey) { pointer in
+            TSObservationRemoverKey = UnsafeRawPointer(pointer)
         }
     }
     

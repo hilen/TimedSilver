@@ -11,46 +11,112 @@ import UIKit
 
 public extension UINavigationItem {
     /**
-     Custom left UINavigationItem
+     UINavigationItem's button position
      
-     - parameter image:  your image
-     - parameter action: handler
+     - LeftItem:  Left
+     - RightItem: Right
      */
-    func ts_leftButtonAction(image: UIImage, action:(Void) -> Void) {
-        let button: UIButton = UIButton(type: UIButtonType.Custom)
-        button.setImage(image, forState: .Normal)
-        button.frame = CGRectMake(0, 0, 40, 30)
-        button.imageView!.contentMode = .ScaleAspectFit;
-        button.contentHorizontalAlignment = .Left
-        button.ts_addEventHandler(forControlEvent: .TouchUpInside, handler: {
-            action()
-        })
-        let barButton = UIBarButtonItem(customView: button)
-        let gapItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-        gapItem.width = -7 //fix the space
-        self.leftBarButtonItems = [gapItem, barButton]
+    enum ts_ButtonItemPosition {
+        case leftItem, rightItem
     }
     
     /**
-     Custom right UINavigationItem
+     Custom UINavigationItem with a button
      
-     - parameter image:  your image
-     - parameter action: handler
+     - parameter button:    Your button, the class method 'ts_itemButton' can return a button with normal image or text. And you can also create your own button.
+     - parameter position: Control the item's position, left or right
+     - parameter action:    Handler
      */
-    func ts_rightButtonAction(image: UIImage, action:(Void) -> Void) {
-        let button: UIButton = UIButton(type: UIButtonType.Custom)
-        button.setImage(image, forState: .Normal)
-        button.frame = CGRectMake(0, 0, 40, 30)
-        button.imageView!.contentMode = .ScaleAspectFit;
-        button.contentHorizontalAlignment = .Right
-        button.ts_addEventHandler(forControlEvent: .TouchUpInside, handler: {
+    
+    func ts_buttonItemAction(
+        _ button: UIButton,
+        position: ts_ButtonItemPosition,
+        action:@escaping (Void) -> Void)
+    {
+        button.ts_addEventHandler(forControlEvent: .touchUpInside, handler: {
             action()
         })
         let barButton = UIBarButtonItem(customView: button)
-        let gapItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-        gapItem.width = -7 //fix the space
-        self.rightBarButtonItems = [gapItem, barButton]
+        let gapItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        gapItem.width = -6 //fix the space
+        
+        switch position {
+        case .leftItem:
+            button.contentHorizontalAlignment = .left
+            self.leftBarButtonItems = [gapItem, barButton]
+        case .rightItem:
+            button.contentHorizontalAlignment = .right
+            self.rightBarButtonItems = [gapItem, barButton]
+        }
     }
+    
+    /**
+     Create an item button.
+     
+     - parameter image: Button image, 20*20 is perfect one
+     - parameter text:  Button text
+     
+     - returns: Item button
+     */
+    class func ts_itemButton(_ image: UIImage? = nil, text: String? = nil) -> UIButton {
+        let button: UIButton = UIButton(type: UIButtonType.custom)
+        if let aImage = image {
+            button.setImage(aImage, for: UIControlState())
+        }
+        
+        var buttonWidth: CGFloat = 40
+        if let aText = text {
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            let attributes: [String : AnyObject] = [
+                NSFontAttributeName: button.titleLabel!.font,
+                ]
+            let size: CGSize = aText.boundingRect(
+                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30),
+                options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                attributes: attributes,
+                context: nil
+                ).size
+            
+            buttonWidth = size.width
+            button.setTitle(aText, for: UIControlState())
+        }
+        button.imageView!.contentMode = .scaleAspectFit;
+        button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 30)
+        return button
+    }
+
+    /**
+     Control leftItem enable
+     
+     - parameter enabled: enabled
+     */
+    func ts_enableLeftItem(_ enabled: Bool ) {
+        guard let barItems = self.leftBarButtonItems , barItems.count > 0 else {
+            return
+        }
+        barItems.forEach({ obj in
+            if obj.isKind(of: UIBarButtonItem.self) || obj.isMember(of: UIBarButtonItem.self) {
+                obj.isEnabled = !enabled
+            }
+        })
+    }
+    
+    /**
+     Control rightItem enable
+     
+     - parameter enabled: enabled
+     */
+    func ts_enableRightItem(_ enabled: Bool ) {
+        guard let barItems = self.rightBarButtonItems , barItems.count > 0 else {
+            return
+        }
+        barItems.forEach({ obj in
+            if obj.isKind(of: UIBarButtonItem.self) || obj.isMember(of: UIBarButtonItem.self) {
+                obj.isEnabled = !enabled
+            }
+        })
+    }
+
 }
 
 

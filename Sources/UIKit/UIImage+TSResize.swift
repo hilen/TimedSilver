@@ -16,7 +16,7 @@ import Accelerate
 extension UIImage {
     //https://github.com/melvitax/AFImageHelper/blob/master/AFImageHelper%2FAFImageExtension.swift
     public enum ts_UIImageContentMode {
-        case ScaleToFill, ScaleAspectFit, ScaleAspectFill
+        case scaleToFill, scaleAspectFit, scaleAspectFill
     }
     
     /**
@@ -28,17 +28,17 @@ extension UIImage {
      
      - Returns A new image
      */
-    public func ts_resize(size:CGSize, contentMode: ts_UIImageContentMode = .ScaleToFill, quality: CGInterpolationQuality = .Medium) -> UIImage? {
+    public func ts_resize(_ size:CGSize, contentMode: ts_UIImageContentMode = .scaleToFill, quality: CGInterpolationQuality = .medium) -> UIImage? {
         let horizontalRatio = size.width / self.size.width;
         let verticalRatio = size.height / self.size.height;
         var ratio: CGFloat!
         
         switch contentMode {
-        case .ScaleToFill:
+        case .scaleToFill:
             ratio = 1
-        case .ScaleAspectFill:
+        case .scaleAspectFill:
             ratio = max(horizontalRatio, verticalRatio)
-        case .ScaleAspectFit:
+        case .scaleAspectFit:
             ratio = min(horizontalRatio, verticalRatio)
         }
         
@@ -48,39 +48,39 @@ extension UIImage {
         // images. See here: http://vocaro.com/trevor/blog/2009/10/12/resize-a-uiimage-the-right-way/comment-page-2/#comment-39951
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
-        let context = CGBitmapContextCreate(nil, Int(rect.size.width), Int(rect.size.height), 8, 0, colorSpace, bitmapInfo.rawValue)
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(rect.size.width), height: Int(rect.size.height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
         
-        let transform = CGAffineTransformIdentity
+        let transform = CGAffineTransform.identity
         
         // Rotate and/or flip the image if required by its orientation
-        CGContextConcatCTM(context, transform);
+        context?.concatenate(transform);
         
         // Set the quality level to use when rescaling
-        CGContextSetInterpolationQuality(context, quality)
+        context!.interpolationQuality = quality
         
         
         //CGContextSetInterpolationQuality(context, CGInterpolationQuality(kCGInterpolationHigh.value))
         
         // Draw into the context; this scales the image
-        CGContextDrawImage(context, rect, self.CGImage)
+        context?.draw(self.cgImage!, in: rect)
         
         // Get the resized image from the context and a UIImage
-        let newImage = UIImage(CGImage: CGBitmapContextCreateImage(context)!, scale: self.scale, orientation: self.imageOrientation)
+        let newImage = UIImage(cgImage: (context?.makeImage()!)!, scale: self.scale, orientation: self.imageOrientation)
         return newImage;
     }
 
-    public func ts_crop(bounds: CGRect) -> UIImage? {
-        return UIImage(CGImage: CGImageCreateWithImageInRect(self.CGImage, bounds)!, scale: 0.0, orientation: self.imageOrientation)
+    public func ts_crop(_ bounds: CGRect) -> UIImage? {
+        return UIImage(cgImage: (self.cgImage?.cropping(to: bounds)!)!, scale: 0.0, orientation: self.imageOrientation)
     }
     
     public func ts_cropToSquare() -> UIImage? {
-        let size = CGSizeMake(self.size.width * self.scale, self.size.height * self.scale)
+        let size = CGSize(width: self.size.width * self.scale, height: self.size.height * self.scale)
         let shortest = min(size.width, size.height)
         let left: CGFloat = size.width > shortest ? (size.width-shortest)/2 : 0
         let top: CGFloat = size.height > shortest ? (size.height-shortest)/2 : 0
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        let insetRect = CGRectInset(rect, left, top)
+        let insetRect = rect.insetBy(dx: left, dy: top)
         return ts_crop(insetRect)
     }
 }

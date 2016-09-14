@@ -18,10 +18,10 @@ public extension NSString {
      
      - returns: Bool
      */
-    class func ts_isEmailValid(email: String) -> Bool {
+    class func ts_isEmailValid(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluateWithObject(email)
+        let result = emailTest.evaluate(with: email)
         
         return result
     }

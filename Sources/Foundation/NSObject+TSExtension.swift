@@ -13,7 +13,7 @@ import UIKit
 public extension NSObject {
     /// The class's name
     class var ts_className: String {
-        return NSStringFromClass(self).componentsSeparatedByString(".").last! as String
+        return NSStringFromClass(self).components(separatedBy: ".").last! as String
     }
     
     /// The class's identifier, for UITableView，UICollectionView register its cell

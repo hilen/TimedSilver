@@ -18,49 +18,49 @@ public extension UITableView {
      - parameter cell:      cell
      - parameter indexPath: indexPath
      */
-    func ts_applyiOS7SettingsStyleGrouping(cell: UITableViewCell, indexPath: NSIndexPath) {
-        if (!cell.respondsToSelector(Selector("tintColor"))){
+    func ts_applyiOS7SettingsStyleGrouping(_ cell: UITableViewCell, indexPath: IndexPath) {
+        if (!cell.responds(to: #selector(getter: UIView.tintColor))){
             return
         }
         
         let cornerRadius : CGFloat = 12.0
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor.clear
         let layer: CAShapeLayer = CAShapeLayer()
-        let pathRef:CGMutablePathRef = CGPathCreateMutable()
-        let bounds: CGRect = CGRectInset(cell.bounds, 25, 0)
+        let pathRef:CGMutablePath = CGMutablePath()
+        let bounds: CGRect = cell.bounds.insetBy(dx: 25, dy: 0)
         var addLine: Bool = false
         
-        if (indexPath.row == 0 && indexPath.row == self.numberOfRowsInSection(indexPath.section)-1) {
-            CGPathAddRoundedRect(pathRef, nil, bounds, cornerRadius, cornerRadius)
-        } else if (indexPath.row == 0) {
-            CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds))
-            CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds), CGRectGetMidX(bounds), CGRectGetMinY(bounds), cornerRadius)
-            CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius)
-            CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds))
+        if ((indexPath as NSIndexPath).row == 0 && (indexPath as NSIndexPath).row == self.numberOfRows(inSection: (indexPath as NSIndexPath).section)-1) {
+            pathRef.__addRoundedRect(transform: nil, rect: bounds, cornerWidth: cornerRadius, cornerHeight: cornerRadius)
+        } else if ((indexPath as NSIndexPath).row == 0) {
+            pathRef.move(to: CGPoint.init(x: bounds.minX, y: bounds.maxY))
+            pathRef.addArc(tangent1End: CGPoint.init(x: bounds.minX, y: bounds.minY), tangent2End: CGPoint.init(x: bounds.midX, y: bounds.minY), radius: cornerRadius)
+            pathRef.addArc(tangent1End: CGPoint.init(x: bounds.maxX, y: bounds.minY), tangent2End: CGPoint.init(x: bounds.maxX, y: bounds.midY), radius: cornerRadius)
+            pathRef.addLine(to: CGPoint.init(x: bounds.maxX, y: bounds.maxY))
             addLine = true
-        } else if (indexPath.row == self.numberOfRowsInSection(indexPath.section)-1) {
-            CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds))
-            CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds), CGRectGetMidX(bounds), CGRectGetMaxY(bounds), cornerRadius)
-            CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius)
-            CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds))
+        } else if ((indexPath as NSIndexPath).row == self.numberOfRows(inSection: (indexPath as NSIndexPath).section)-1) {
+            pathRef.move(to: CGPoint.init(x: bounds.minX, y: bounds.minY))
+            pathRef.addArc(tangent1End: CGPoint.init(x: bounds.minX, y: bounds.maxY), tangent2End: CGPoint.init(x: bounds.midX, y: bounds.maxY), radius: cornerRadius)
+            pathRef.addArc(tangent1End: CGPoint.init(x: bounds.maxY, y: bounds.maxY), tangent2End: CGPoint.init(x: bounds.maxX, y: bounds.midY), radius: cornerRadius)
+            pathRef.addLine(to: CGPoint.init(x: bounds.maxX, y: bounds.minY))
         } else {
-            CGPathAddRect(pathRef, nil, bounds)
+            pathRef.addRect(bounds)
             addLine = true
         }
         
         layer.path = pathRef
-        layer.fillColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8).CGColor
+        layer.fillColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8).cgColor
         
         if (addLine == true) {
             let lineLayer: CALayer = CALayer()
-            let lineHeight: CGFloat = (1.0 / UIScreen.mainScreen().scale)
-            lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+10, bounds.size.height-lineHeight, bounds.size.width-10, lineHeight)
-            lineLayer.backgroundColor = self.separatorColor!.CGColor
+            let lineHeight: CGFloat = (1.0 / UIScreen.main.scale)
+            lineLayer.frame = CGRect(x: bounds.minX+10, y: bounds.size.height-lineHeight, width: bounds.size.width-10, height: lineHeight)
+            lineLayer.backgroundColor = self.separatorColor!.cgColor
             layer.addSublayer(lineLayer)
         }
         let testView: UIView = UIView(frame: bounds)
-        testView.layer.insertSublayer(layer, atIndex: 0)
-        testView.backgroundColor = UIColor.clearColor()
+        testView.layer.insertSublayer(layer, at: 0)
+        testView.backgroundColor = UIColor.clear
         cell.backgroundView = testView
     }
     

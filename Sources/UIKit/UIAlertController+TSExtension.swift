@@ -21,13 +21,13 @@ public extension UIAlertController {
      - returns: UIAlertController
      */
     class func ts_singleButtonAlertWithTitle(
-        title: String,
+        _ title: String,
         message: String,
         buttonText: String? = "OK",
         completion: (() -> Void)?) -> UIAlertController
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: buttonText, style: .Default, handler: {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonText, style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             if let completion = completion {
                 completion()
@@ -49,15 +49,15 @@ public extension UIAlertController {
      - returns: UIAlertController
      */
     class func ts_doubleButtonAlertWithTitle(
-        title: String,
+        _ title: String,
         message: String,
         buttonText: String? = "OK",
         otherButtonTitle: String,
         completion: (() -> Void)?) -> UIAlertController
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: buttonText, style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: otherButtonTitle, style: .Default, handler: {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonText, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             if let completion = completion {
                 completion()
@@ -74,18 +74,18 @@ public extension UIAlertController {
         self.ts_present(true, completion: nil)
     }
     
-    func ts_present(animated: Bool, completion: (() -> Void)?) {
-        if let rootVC = UIApplication.sharedApplication().keyWindow?.rootViewController {
+    func ts_present(_ animated: Bool, completion: (() -> Void)?) {
+        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
             self.ts_presentFromController(rootVC, animated: animated, completion: completion)
         }
     }
     
-    func ts_presentFromController(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    func ts_presentFromController(_ controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
         if let navVC = controller as? UINavigationController,
             let visibleVC = navVC.visibleViewController {
             self.ts_presentFromController(visibleVC, animated: animated, completion: completion)
         }  else {
-            controller.presentViewController(self, animated: animated, completion: completion);
+            controller.present(self, animated: animated, completion: completion);
         }
     }
     

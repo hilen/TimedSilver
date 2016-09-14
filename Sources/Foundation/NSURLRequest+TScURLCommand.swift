@@ -9,10 +9,10 @@
 
 import Foundation
 
-extension NSURLRequest {
-    private func escapeQuotesInString(string: String) -> String {
+extension URLRequest {
+    fileprivate func escapeQuotesInString(_ string: String) -> String {
         assert(string.characters.count > 0 , "Error: String is not valid")
-        return string.stringByReplacingOccurrencesOfString("\"", withString:"\\\"", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        return string.replacingOccurrences(of: "\"", with:"\\\"", options: NSString.CompareOptions.literal, range: nil)
     }
 
     /**
@@ -41,7 +41,7 @@ extension NSURLRequest {
      - returns: cURL command string
      */
     public func cURLCommandString() -> String! {
-        let curlString: NSMutableString = NSMutableString(string:"curl -k -X \(self.HTTPMethod!) --dump-header -")
+        let curlString: NSMutableString = NSMutableString(string:"curl -k -X \(self.httpMethod!) --dump-header -")
         
         if let allHTTPHeaderFields: [String : String] = self.allHTTPHeaderFields {
             for key: String in allHTTPHeaderFields.keys {
@@ -51,17 +51,17 @@ extension NSURLRequest {
             }
         }
         
-        if let body: NSData = self.HTTPBody where self.HTTPBody != nil {
-            if var bodyDataString = String(data: body, encoding: NSUTF8StringEncoding) {
+        if let body: Data = self.httpBody , self.httpBody != nil {
+            if var bodyDataString = String(data: body, encoding: String.Encoding.utf8) {
                 if bodyDataString.characters.count > 0 {
                     bodyDataString = self.escapeQuotesInString(bodyDataString)
                     curlString.appendFormat(" -d \"%@\"", bodyDataString)
                 }
             }
         }
-        curlString.appendFormat(" \"%@\"", self.URL!.absoluteString)
+        curlString.appendFormat(" \"%@\"", self.url!.absoluteString)
         
-        let trimmed = curlString.stringByReplacingOccurrencesOfString("\n", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
+        let trimmed = curlString.replacingOccurrences(of: "\n", with: "").trimmingCharacters(in: CharacterSet.newlines)
         return trimmed as String
     }
 }

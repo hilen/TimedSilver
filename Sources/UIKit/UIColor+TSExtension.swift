@@ -19,9 +19,9 @@ public extension UIColor {
      - returns: UIColor
      */
     convenience init(ts_hexString hexString: String, alpha: Double = 1.0) {
-        let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
-        NSScanner(string: hex).scanHexInt(&int)
+        Scanner(string: hex).scanHexInt32(&int)
         let r, g, b: UInt32
         switch hex.characters.count {
         case 3: // RGB (12-bit)

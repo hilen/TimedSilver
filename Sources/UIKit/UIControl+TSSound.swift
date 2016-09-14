@@ -12,7 +12,7 @@ import UIKit
 import AVFoundation
 
 extension UIControl {
-    private struct AssociatedKeys {
+    fileprivate struct AssociatedKeys {
         static var ts_soundKey = "ts_soundKey"
     }
     
@@ -22,24 +22,25 @@ extension UIControl {
      - parameter name:         music name
      - parameter controlEvent: controlEvent
      */
-    public func ts_addSoundName(name: String, forControlEvent controlEvent: UIControlEvents)  {
+    public func ts_addSoundName(_ name: String, forControlEvent controlEvent: UIControlEvents)  {
         let oldSoundKey: String = "\(controlEvent)"
         let oldSound: AVAudioPlayer = self.ts_sounds[oldSoundKey]!
-        self.removeTarget(oldSound, action: #selector(AVAudioPlayer.play), forControlEvents: controlEvent)
+        let selector = NSSelectorFromString("play")
+        self.removeTarget(oldSound, action: selector, for: controlEvent)
         do {
             try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryAmbient")
             // Find the sound file.
-            guard let soundFileURL = NSBundle.mainBundle().URLForResource(name, withExtension: "") else {
+            guard let soundFileURL = Bundle.main.url(forResource: name, withExtension: "") else {
                 assert(false, "File not exist")
                 return
             }
             
-            let tapSound: AVAudioPlayer = try! AVAudioPlayer(contentsOfURL: soundFileURL)
+            let tapSound: AVAudioPlayer = try! AVAudioPlayer(contentsOf: soundFileURL)
             let controlEventKey: String = "\(controlEvent)"
-            var sounds: [NSObject : AnyObject] = self.ts_sounds
+            var sounds: [AnyHashable: Any] = self.ts_sounds
             sounds[controlEventKey] = tapSound
             tapSound.prepareToPlay()
-            self.addTarget(tapSound, action: #selector(AVAudioPlayer.play), forControlEvents: controlEvent)
+            self.addTarget(tapSound, action: selector, for: controlEvent)
         }
         catch _ {}
     }

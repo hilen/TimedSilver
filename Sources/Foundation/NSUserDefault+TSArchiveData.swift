@@ -9,16 +9,16 @@
 
 import Foundation
 
-public extension NSUserDefaults {
+public extension UserDefaults {
     /**
      Set Archive Data
      
      - parameter object: object
      - parameter key:    key
      */
-    func ts_setArchiveData<T: NSCoding>(object: T, forKey key: String) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(object)
-        setObject(data, forKey: key)
+    func ts_setArchiveData<T: NSCoding>(_ object: T, forKey key: String) {
+        let data = NSKeyedArchiver.archivedData(withRootObject: object)
+        set(data, forKey: key)
     }
     
     /**
@@ -30,8 +30,8 @@ public extension NSUserDefaults {
      - returns: T
      */
     func ts_archiveDataForKey<T: NSCoding>(_: T.Type, key: String) -> T? {
-        guard let data = objectForKey(key) as? NSData else { return nil }
-        guard let object = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? T else { return nil }
+        guard let data = object(forKey: key) as? Data else { return nil }
+        guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? T else { return nil }
         return object
     }
 }

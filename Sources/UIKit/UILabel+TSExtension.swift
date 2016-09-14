@@ -21,9 +21,9 @@ public extension UILabel {
         paragraphStyle.lineBreakMode = self.lineBreakMode
         paragraphStyle.alignment = self.textAlignment
         let attributes: [String : AnyObject] = [NSFontAttributeName: self.font, NSParagraphStyleAttributeName: paragraphStyle]
-        let contentSize: CGSize = self.text!.boundingRectWithSize(
-            self.frame.size,
-            options: ([.UsesLineFragmentOrigin, .UsesFontLeading]),
+        let contentSize: CGSize = self.text!.boundingRect(
+            with: self.frame.size,
+            options: ([.usesLineFragmentOrigin, .usesFontLeading]),
             attributes: attributes,
             context: nil
         ).size
@@ -36,14 +36,14 @@ public extension UILabel {
      - parameter string: text
      - parameter width:  your limit width
      */
-    func ts_setFrameWithString(string: String, width: CGFloat) {
+    func ts_setFrameWithString(_ string: String, width: CGFloat) {
         self.numberOfLines = 0
         let attributes: [String : AnyObject] = [
             NSFontAttributeName: self.font,
         ]
-        let resultSize: CGSize = string.boundingRectWithSize(
-            CGSize(width: width, height: CGFloat.max),
-            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+        let resultSize: CGSize = string.boundingRect(
+            with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: attributes,
             context: nil
         ).size

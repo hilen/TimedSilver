@@ -9,9 +9,9 @@
 
 import Foundation
 
-public extension NSDate {
+public extension Date {
     /// Convert NSDate to Millisecond
-    class var ts_milliseconds: NSTimeInterval {
-        get { return NSDate().timeIntervalSince1970 * 1000 }
+    static var ts_milliseconds: TimeInterval {
+        get { return Date().timeIntervalSince1970 * 1000 }
     }
 }

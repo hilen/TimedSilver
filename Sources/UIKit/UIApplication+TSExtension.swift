@@ -13,12 +13,12 @@ import UIKit
 extension UIApplication {
     ///Get screen orientation
     public static var ts_screenOrientation: UIInterfaceOrientation {
-        return UIApplication.sharedApplication().statusBarOrientation
+        return UIApplication.shared.statusBarOrientation
     }
     
     ///Get status bar's height
     public static var ts_screenStatusBarHeight: CGFloat {
-        return UIApplication.sharedApplication().statusBarFrame.height
+        return UIApplication.shared.statusBarFrame.height
     }
     
     //https://github.com/goktugyil/EZSwiftExtensions/blob/master/Sources/UIApplicationExtensions.swift
@@ -28,13 +28,13 @@ extension UIApplication {
      - parameter closure:           The closure
      - parameter expirationHandler: The expiration handler
      */
-    public func ts_runIntoBackground(closure: () -> Void, expirationHandler: (() -> Void)? = nil) {
-        dispatch_async(dispatch_get_main_queue()) {
+    public func ts_runIntoBackground(_ closure: @escaping () -> Void, expirationHandler: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
             let taskID: UIBackgroundTaskIdentifier
             if let expirationHandler = expirationHandler {
-                taskID = self.beginBackgroundTaskWithExpirationHandler(expirationHandler)
+                taskID = self.beginBackgroundTask(expirationHandler: expirationHandler)
             } else {
-                taskID = self.beginBackgroundTaskWithExpirationHandler({ })
+                taskID = self.beginBackgroundTask(expirationHandler: { })
             }
             closure()
             self.endBackgroundTask(taskID)

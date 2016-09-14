@@ -1,15 +1,15 @@
 //
-//  ExampleTests.swift
-//  ExampleTests
+//  TimedSilverDemoTests.swift
+//  TimedSilverDemoTests
 //
 //  Created by Hilen on 8/4/16.
 //  Copyright © 2016 Hilen. All rights reserved.
 //
 
 import XCTest
-@testable import Example
+@testable import TimedSilverDemo
 
-class ExampleTests: XCTestCase {
+class TimedSilverDemoTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,14 +21,14 @@ class ExampleTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testTimedSilverDemo() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
-    func testPerformanceExample() {
+    func testPerformanceTimedSilverDemo() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }

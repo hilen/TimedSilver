@@ -12,8 +12,8 @@ import UIKit
 import AVFoundation
 
 class TSClosureWrapper : NSObject {
-    let _callback : Void -> Void
-    init(callback : Void -> Void) {
+    let _callback : (Void) -> Void
+    init(callback : @escaping (Void) -> Void) {
         _callback = callback
     }
     
@@ -32,9 +32,9 @@ public extension UIControl {
      - parameter events:   UIControlEvents
      - parameter callback: callback
      */
-    func ts_addEventHandler(forControlEvent controlEvent: UIControlEvents, handler callback: Void -> Void) {
+    func ts_addEventHandler(forControlEvent controlEvent: UIControlEvents, handler callback: @escaping (Void) -> Void) {
         let wrapper = TSClosureWrapper(callback: callback)
-        addTarget(wrapper, action:#selector(TSClosureWrapper.invoke), forControlEvents: controlEvent)
+        addTarget(wrapper, action:#selector(TSClosureWrapper.invoke), for: controlEvent)
         objc_setAssociatedObject(self, &AssociatedClosure, wrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 }

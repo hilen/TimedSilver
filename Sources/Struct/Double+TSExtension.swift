@@ -12,19 +12,19 @@ import Foundation
 // MARK: - Time extensions
 
 public extension Double {
-    var ts_millisecond: NSTimeInterval  { return self / 1000 }
-    var ts_milliseconds: NSTimeInterval { return self / 1000 }
-    var ts_ms: NSTimeInterval           { return self / 1000 }
+    var ts_millisecond: TimeInterval  { return self / 1000 }
+    var ts_milliseconds: TimeInterval { return self / 1000 }
+    var ts_ms: TimeInterval           { return self / 1000 }
     
-    var ts_second: NSTimeInterval       { return self }
-    var ts_seconds: NSTimeInterval      { return self }
+    var ts_second: TimeInterval       { return self }
+    var ts_seconds: TimeInterval      { return self }
     
-    var ts_minute: NSTimeInterval       { return self * 60 }
-    var ts_minutes: NSTimeInterval      { return self * 60 }
+    var ts_minute: TimeInterval       { return self * 60 }
+    var ts_minutes: TimeInterval      { return self * 60 }
     
-    var ts_hour: NSTimeInterval         { return self * 3600 }
-    var ts_hours: NSTimeInterval        { return self * 3600 }
+    var ts_hour: TimeInterval         { return self * 3600 }
+    var ts_hours: TimeInterval        { return self * 3600 }
     
-    var ts_day: NSTimeInterval          { return self * 3600 * 24 }
-    var ts_days: NSTimeInterval         { return self * 3600 * 24 }
+    var ts_day: TimeInterval          { return self * 3600 * 24 }
+    var ts_days: TimeInterval         { return self * 3600 * 24 }
 }

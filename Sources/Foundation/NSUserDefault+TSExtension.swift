@@ -9,7 +9,7 @@
 
 import Foundation
 
-public extension NSUserDefaults {
+public extension UserDefaults {
     // MARK: - Getter
     
     /**
@@ -20,11 +20,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_objectForKey(key: String, defaultValue: AnyObject? = nil) -> AnyObject? {
+    class func ts_objectForKey(_ key: String, defaultValue: AnyObject? = nil) -> AnyObject? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue
         }
-        return NSUserDefaults.standardUserDefaults().objectForKey(key)
+        return UserDefaults.standard.object(forKey: key) as AnyObject?
     }
     
     /**
@@ -35,11 +35,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_integerForKey(key: String, defaultValue: Int? = nil) -> Int {
+    class func ts_integerForKey(_ key: String, defaultValue: Int? = nil) -> Int {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().integerForKey(key)
+        return UserDefaults.standard.integer(forKey: key)
     }
     
     /**
@@ -50,11 +50,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_boolForKey(key: String, defaultValue: Bool? = nil) -> Bool {
+    class func ts_boolForKey(_ key: String, defaultValue: Bool? = nil) -> Bool {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().boolForKey(key)
+        return UserDefaults.standard.bool(forKey: key)
     }
     
     /**
@@ -65,11 +65,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_floatForKey(key: String, defaultValue: Float? = nil) -> Float {
+    class func ts_floatForKey(_ key: String, defaultValue: Float? = nil) -> Float {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().floatForKey(key)
+        return UserDefaults.standard.float(forKey: key)
     }
 
     /**
@@ -80,11 +80,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_doubleForKey(key: String, defaultValue: Double? = nil) -> Double {
+    class func ts_doubleForKey(_ key: String, defaultValue: Double? = nil) -> Double {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().doubleForKey(key)
+        return UserDefaults.standard.double(forKey: key)
     }
     
     /**
@@ -95,11 +95,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_stringForKey(key: String, defaultValue: String? = nil) -> String? {
+    class func ts_stringForKey(_ key: String, defaultValue: String? = nil) -> String? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().stringForKey(key)
+        return UserDefaults.standard.string(forKey: key)
     }
     
     /**
@@ -110,11 +110,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_dataForKey(key: String, defaultValue: NSData? = nil) -> NSData? {
+    class func ts_dataForKey(_ key: String, defaultValue: Data? = nil) -> Data? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().dataForKey(key)
+        return UserDefaults.standard.data(forKey: key)
     }
     
     /**
@@ -125,11 +125,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_URLForKey(key: String, defaultValue: NSURL? = nil) -> NSURL? {
+    class func ts_URLForKey(_ key: String, defaultValue: URL? = nil) -> URL? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().URLForKey(key)
+        return UserDefaults.standard.url(forKey: key)
     }
     
     /**
@@ -140,11 +140,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_arrayForKey(key: String, defaultValue: [AnyObject]? = nil) -> [AnyObject]? {
+    class func ts_arrayForKey(_ key: String, defaultValue: [AnyObject]? = nil) -> [AnyObject]? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().arrayForKey(key)
+        return UserDefaults.standard.array(forKey: key) as [AnyObject]?
     }
     
     /**
@@ -155,11 +155,11 @@ public extension NSUserDefaults {
      
      - returns: AnyObject
      */
-    class func ts_dictionaryForKey(key: String, defaultValue: [String : AnyObject]? = nil) -> [String : AnyObject]? {
+    class func ts_dictionaryForKey(_ key: String, defaultValue: [String : AnyObject]? = nil) -> [String : AnyObject]? {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return NSUserDefaults.standardUserDefaults().dictionaryForKey(key)
+        return UserDefaults.standard.dictionary(forKey: key) as [String : AnyObject]?
     }
 
     // MARK: - Setter
@@ -170,13 +170,13 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setObject(key: String, value: AnyObject?) {
+    class func ts_setObject(_ key: String, value: AnyObject?) {
         if value == nil {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+            UserDefaults.standard.removeObject(forKey: key)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+            UserDefaults.standard.set(value, forKey: key)
         }
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.synchronize()
     }
     
     /**
@@ -185,9 +185,9 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setInteger(key: String, value: Int) {
-        NSUserDefaults.standardUserDefaults().setInteger(value, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    class func ts_setInteger(_ key: String, value: Int) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     /**
@@ -196,9 +196,9 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setBool(key: String, value: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(value, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    class func ts_setBool(_ key: String, value: Bool) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     /**
@@ -207,9 +207,9 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setFloat(key: String, value: Float) {
-        NSUserDefaults.standardUserDefaults().setFloat(value, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    class func ts_setFloat(_ key: String, value: Float) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     /**
@@ -218,13 +218,13 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setString(key: String, value: NSString?) {
+    class func ts_setString(_ key: String, value: NSString?) {
         if (value == nil) {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+            UserDefaults.standard.removeObject(forKey: key)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+            UserDefaults.standard.set(value, forKey: key)
         }
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.synchronize()
     }
     
     /**
@@ -233,8 +233,8 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setData(key: String, value: NSData) {
-        self.ts_setObject(key, value: value)
+    class func ts_setData(_ key: String, value: Data) {
+        self.ts_setObject(key, value: value as AnyObject?)
     }
     
     /**
@@ -243,8 +243,8 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setArray(key: String, value: [AnyObject]) {
-        self.ts_setObject(key, value: value)
+    class func ts_setArray(_ key: String, value: [AnyObject]) {
+        self.ts_setObject(key, value: value as AnyObject?)
     }
     
     /**
@@ -253,8 +253,8 @@ public extension NSUserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setDictionary(key: String, value: [String : AnyObject]) {
-        self.ts_setObject(key, value: value)
+    class func ts_setDictionary(_ key: String, value: [String : AnyObject]) {
+        self.ts_setObject(key, value: value as AnyObject?)
     }
 }
 

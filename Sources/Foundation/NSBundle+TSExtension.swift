@@ -9,10 +9,10 @@
 
 import UIKit
 
-public extension NSBundle {
+public extension Bundle {
     /// The app's name
     public static var ts_appName: String? {
-        guard let name =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String else {
+        guard let name =  Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String else {
             return nil
         }
         return name
@@ -20,22 +20,22 @@ public extension NSBundle {
     
     /// The app's version
     public static var ts_appVersion: String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+        return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
     /// The app's build number
     public static var ts_appBuild: String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
     }
     
     /// The app's bundle identifier
     public static var ts_bundleIdentifier: String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleIdentifier"] as! String
+        return Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
     }
     
     /// The app's bundle name
     public static var ts_bundleName: String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleName"] as! String
+        return Bundle.main.infoDictionary!["CFBundleName"] as! String
     }
     
     /// The app's version and build number
@@ -46,10 +46,10 @@ public extension NSBundle {
     
     /// App's icon file path
     public class var ts_iconFilePath: String {
-        let iconFilename = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleIconFile")
-        let iconBasename = (iconFilename as! NSString).stringByDeletingPathExtension
+        let iconFilename = Bundle.main.object(forInfoDictionaryKey: "CFBundleIconFile")
+        let iconBasename = (iconFilename as! NSString).deletingPathExtension
         let iconExtension = (iconFilename as! NSString).pathExtension
-        return NSBundle.mainBundle().pathForResource(iconBasename, ofType: iconExtension)!
+        return Bundle.main.path(forResource: iconBasename, ofType: iconExtension)!
     }
     
     /**

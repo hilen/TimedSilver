@@ -66,12 +66,12 @@ public extension UIView {
     
     var ts_centerX: CGFloat {
         get { return self.center.x }
-        set { self.center = CGPointMake(newValue, self.center.y) }
+        set { self.center = CGPoint(x: newValue, y: self.center.y) }
     }
     
     var ts_centerY: CGFloat {
         get { return self.center.y }
-        set { self.center = CGPointMake(self.center.x, newValue) }
+        set { self.center = CGPoint(x: self.center.x, y: newValue) }
     }
     
     var ts_top : CGFloat {

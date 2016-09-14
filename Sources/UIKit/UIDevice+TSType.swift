@@ -33,8 +33,8 @@ public extension UIDevice {
     }
     
     class func ts_maxDeviceWidth() -> Float {
-        let w = Float(UIScreen.mainScreen().bounds.width)
-        let h = Float(UIScreen.mainScreen().bounds.height)
+        let w = Float(UIScreen.main.bounds.width)
+        let h = Float(UIScreen.main.bounds.height)
         return fmax(w, h)
     }
     
@@ -63,7 +63,7 @@ public extension UIDevice {
      - returns: Bool
      */
     class func ts_isPhone() -> Bool {
-        return UIDevice.currentDevice().userInterfaceIdiom == .Phone
+        return UIDevice.current.userInterfaceIdiom == .phone
     }
 
     /**
@@ -72,7 +72,7 @@ public extension UIDevice {
      - returns: Bool
      */
     class func ts_isPad() -> Bool {
-        return UIDevice.currentDevice().userInterfaceIdiom == .Pad
+        return UIDevice.current.userInterfaceIdiom == .pad
     }
     
     /**
@@ -91,7 +91,7 @@ public extension UIDevice {
      */
     @available(iOS 9, *)
     class func ts_isTV() -> Bool {
-        return UIDevice.currentDevice().userInterfaceIdiom == .TV
+        return UIDevice.current.userInterfaceIdiom == .tv
     }
     
     /**
@@ -208,13 +208,13 @@ public extension UIDevice {
         case iOS7 = 7.0
         case iOS8 = 8.0
         case iOS9 = 9.0
-        case Unknown = 0.0
+        case unknown = 0.0
     }
     
     /// Device's system version
     class var ts_systemVersion: Float {
         struct Singleton {
-            static let version = (UIDevice.currentDevice().systemVersion as NSString).floatValue
+            static let version = (UIDevice.current.systemVersion as NSString).floatValue
         }
         return Singleton.version
     }
@@ -228,7 +228,7 @@ public extension UIDevice {
         if ts_iOS7() { return ts_iOSType.iOS7 }
         if ts_iOS8() { return ts_iOSType.iOS8 }
         if ts_iOS9() { return ts_iOSType.iOS9 }
-        return ts_iOSType.Unknown
+        return ts_iOSType.unknown
     }
     
     /**

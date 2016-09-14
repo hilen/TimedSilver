@@ -18,14 +18,14 @@ public extension UICollectionView {
      
      - returns: NSIndexPath
      */
-    func ts_lastIndexPathInSection(section: Int) -> NSIndexPath? {
-        return NSIndexPath(forRow: self.numberOfItemsInSection(section)-1, inSection: section)
+    func ts_lastIndexPathInSection(_ section: Int) -> IndexPath? {
+        return IndexPath(row: self.numberOfItems(inSection: section)-1, section: section)
     }
     
     /// Last indexPath in UICollectionView
-    var ts_lastIndexPath: NSIndexPath? {
+    var ts_lastIndexPath: IndexPath? {
         if (self.ts_totalItems - 1) > 0 {
-            return NSIndexPath(forRow: self.ts_totalItems-1, inSection: self.numberOfSections())
+            return IndexPath(row: self.ts_totalItems-1, section: self.numberOfSections)
         } else {
             return nil
         }
@@ -35,8 +35,8 @@ public extension UICollectionView {
     var ts_totalItems: Int {
         var i = 0
         var rowCount = 0
-        while i < self.numberOfSections() {
-            rowCount += self.numberOfItemsInSection(i)
+        while i < self.numberOfSections {
+            rowCount += self.numberOfItems(inSection: i)
             i += 1
         }
         return rowCount
@@ -47,22 +47,79 @@ public extension UICollectionView {
      
      - parameter animated: animated
      */
-    func ts_scrollToBottom(animated: Bool) {
-        let section = self.numberOfSections() - 1
-        let row = self.numberOfItemsInSection(section) - 1
+    func ts_scrollToBottom(_ animated: Bool) {
+        let section = self.numberOfSections - 1
+        let row = self.numberOfItems(inSection: section) - 1
         if section < 0 || row < 0 {
             return
         }
-        let path = NSIndexPath(forRow: row, inSection: section)
+        let path = IndexPath(row: row, section: section)
         let offset = contentOffset.y
-        self.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: animated)
+        self.scrollToItem(at: path, at: .top, animated: animated)
         let delay = (animated ? 0.1 : 0.0) * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        dispatch_after(time, dispatch_get_main_queue(), { () -> Void in
+        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: time, execute: { () -> Void in
             if self.contentOffset.y != offset {
                 self.ts_scrollToBottom(false)
             }
         })
+    }
+    
+    /**
+     Reload data without flashing
+     */
+    func ts_reloadWithoutFlashing() {
+        UIView.setAnimationsEnabled(false)
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        self.reloadData()
+        CATransaction.commit()
+        UIView.setAnimationsEnabled(true)
+    }
+    
+    /**
+     Fetch indexPaths of UICollectionView's visibleCells
+     
+     - returns: NSIndexPath Array
+     */
+    func ts_visibleIndexPaths() -> [IndexPath] {
+        var list = [IndexPath]()
+        for cell in self.visibleCells {
+            if let indexPath = self.indexPath(for: cell) {
+                list.append(indexPath)
+            }
+        }
+        return list
+    }
+    
+    /**
+     Fetch indexPaths of UICollectionView's rect
+     
+     - returns: NSIndexPath Array
+     */
+    func ts_indexPathsForElementsInRect(_ rect: CGRect) -> [IndexPath]? {
+        guard let allLayoutAttributes = self.collectionViewLayout.layoutAttributesForElements(in: rect) else {
+            return nil
+        }
+        if allLayoutAttributes.count == 0 {
+            return nil
+        }
+        
+        var indexPaths = [IndexPath]()
+        for layoutAttributes in allLayoutAttributes {
+            indexPaths.append(layoutAttributes.indexPath)
+        }
+        return indexPaths
+    }
+    
+    /**
+     Reload data with completion block
+     
+     - parameter completion: completion block
+     */
+    func ts_reloadData(_ completion: @escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: { self.reloadData() }, completion: { _ in completion() })
+        
     }
 }
 

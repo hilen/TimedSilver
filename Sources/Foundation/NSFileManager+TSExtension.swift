@@ -9,14 +9,14 @@
 
 import Foundation
 
-public extension NSFileManager {
+public extension FileManager {
     /**
      Get URL of Document directory.
      
      - returns: Document directory URL.
      */
-    class func ts_documentURL() -> NSURL {
-        return ts_URLForDirectory(.DocumentDirectory)!
+    class func ts_documentURL() -> URL {
+        return ts_URLForDirectory(.documentDirectory)!
     }
     
     /**
@@ -25,7 +25,7 @@ public extension NSFileManager {
      - returns: Document directory String.
      */
     class func ts_documentPath() -> String {
-        return ts_pathForDirectory(.DocumentDirectory)!
+        return ts_pathForDirectory(.documentDirectory)!
     }
     
     /**
@@ -33,8 +33,8 @@ public extension NSFileManager {
      
      - returns: Library directory URL
      */
-    class func ts_libraryURL() -> NSURL {
-        return ts_URLForDirectory(.LibraryDirectory)!
+    class func ts_libraryURL() -> URL {
+        return ts_URLForDirectory(.libraryDirectory)!
     }
     
     /**
@@ -43,7 +43,7 @@ public extension NSFileManager {
      - returns: Library directory String
      */
     class func ts_libraryPath() -> String {
-        return ts_pathForDirectory(.LibraryDirectory)!
+        return ts_pathForDirectory(.libraryDirectory)!
     }
     
     /**
@@ -51,8 +51,8 @@ public extension NSFileManager {
      
      - returns: Caches directory URL
      */
-    class func ts_cachesURL() -> NSURL {
-        return ts_URLForDirectory(.CachesDirectory)!
+    class func ts_cachesURL() -> URL {
+        return ts_URLForDirectory(.cachesDirectory)!
     }
     
     /**
@@ -61,7 +61,7 @@ public extension NSFileManager {
      - returns: Caches directory String
      */
     class func ts_cachesPath() -> String {
-        return ts_pathForDirectory(.CachesDirectory)!
+        return ts_pathForDirectory(.cachesDirectory)!
     }
     
     /**
@@ -69,9 +69,9 @@ public extension NSFileManager {
      
      - parameter filePath: Path to a file to set an attribute.
      */
-    class func ts_addSkipBackupAttributeToFile(filePath: String) {
-        if let url: NSURL = NSURL(fileURLWithPath: filePath) {
-            do { try url.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey) } catch {}
+    class func ts_addSkipBackupAttributeToFile(_ filePath: String) {
+        if let url: URL = URL(fileURLWithPath: filePath) {
+            do { try (url as NSURL).setResourceValue(NSNumber(value: true as Bool), forKey: URLResourceKey.isExcludedFromBackupKey) } catch {}
         }
     }
     
@@ -81,19 +81,19 @@ public extension NSFileManager {
      - returns: Double in MB
      */
     class func ts_availableDiskSpaceMb() -> Double {
-        let fileAttributes = try? defaultManager().attributesOfFileSystemForPath(ts_documentPath())
-        if let fileSize = fileAttributes![NSFileSystemSize]?.doubleValue {
+        let fileAttributes = try? `default`.attributesOfFileSystem(forPath: ts_documentPath())
+        if let fileSize = (fileAttributes![FileAttributeKey.systemSize] as AnyObject).doubleValue {
             return fileSize / Double(0x100000)
         }
         return 0
     }
     
-    private class func ts_URLForDirectory(directory: NSSearchPathDirectory) -> NSURL? {
-        return defaultManager().URLsForDirectory(directory, inDomains: .UserDomainMask).last
+    fileprivate class func ts_URLForDirectory(_ directory: FileManager.SearchPathDirectory) -> URL? {
+        return `default`.urls(for: directory, in: .userDomainMask).last
     }
     
-    private class func ts_pathForDirectory(directory: NSSearchPathDirectory) -> String? {
-        return NSSearchPathForDirectoriesInDomains(directory, .UserDomainMask, true)[0]
+    fileprivate class func ts_pathForDirectory(_ directory: FileManager.SearchPathDirectory) -> String? {
+        return NSSearchPathForDirectoriesInDomains(directory, .userDomainMask, true)[0]
     }
 }
 

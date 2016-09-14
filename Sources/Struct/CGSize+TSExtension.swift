@@ -10,8 +10,25 @@
 import UIKit
 
 public extension CGSize {
-    func ts_aspectFit(boundingSize: CGSize) -> CGSize {
+    /**
+     Aspect fit size
+     
+     - parameter boundingSize: boundingSize
+     
+     - returns: CGSize
+     */
+    func ts_aspectFit(_ boundingSize: CGSize) -> CGSize {
         let minRatio = min(boundingSize.width / width, boundingSize.height / height)
         return CGSize(width: width*minRatio, height: height*minRatio)
+    }
+    
+    /**
+     Pixel size
+     
+     - returns: CGSize
+     */
+    func ts_toPixel() -> CGSize {
+        let scale = UIScreen.main.scale
+        return CGSize(width: self.width * scale, height: self.height * scale)
     }
 }

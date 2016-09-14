@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Example
+//  TimedSilverDemo
 //
 //  Created by Hilen on 8/4/16.
 //  Copyright © 2016 Hilen. All rights reserved.

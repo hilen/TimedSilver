@@ -16,7 +16,7 @@ public extension Dictionary {
      
      - parameter dictionaries: A comma seperated list of dictionaries
      */
-    mutating func ts_merge<K, V>(dictionaries: Dictionary<K, V>...) {
+    mutating func ts_merge<K, V>(_ dictionaries: Dictionary<K, V>...) {
         for dict in dictionaries {
             for (key, value) in dict {
                 self.updateValue(value as! Value, forKey: key as! Key)
@@ -32,7 +32,7 @@ public extension Dictionary {
      
      - returns: The new dictionary.
      */
-    func ts_combine<K, V>(left: Dictionary<K, V>, right: Dictionary<K, V>) -> Dictionary<K, V> {
+    func ts_combine<K, V>(_ left: Dictionary<K, V>, right: Dictionary<K, V>) -> Dictionary<K, V> {
         var map = Dictionary<K, V>()
         for (k, v) in left {
             map[k] = v
@@ -52,7 +52,7 @@ public extension Dictionary {
      
      - returns: Mapped array
      */
-    func ts_toArray<V>(map: (Key, Value) -> V) -> [V] {
+    func ts_toArray<V>(_ map: (Key, Value) -> V) -> [V] {
         var mapped = [V]()
         ts_each {
             mapped.append(map($0, $1))
@@ -65,7 +65,7 @@ public extension Dictionary {
      
      - parameter each: Function to inovke on each loop
      */
-    func ts_each(each: (Key, Value) -> ()) {
+    func ts_each(_ each: (Key, Value) -> ()) {
         for (key, value) in self {
             each(key, value)
         }
@@ -78,7 +78,7 @@ public extension Dictionary {
      
      - returns: Filtered dictionary
      */
-    func ts_pick(keys: [Key]) -> Dictionary {
+    func ts_pick(_ keys: [Key]) -> Dictionary {
         return ts_filter { (key: Key, _) -> Bool in
             return keys.contains(key)
         }
@@ -92,7 +92,7 @@ public extension Dictionary {
      
      - returns: Filtered dictionary
      */
-    func ts_filter(test: (Key, Value) -> Bool) -> Dictionary {
+    func ts_filter(_ test: (Key, Value) -> Bool) -> Dictionary {
         var result = Dictionary()
         for (key, value) in self {
             if test(key, value) {

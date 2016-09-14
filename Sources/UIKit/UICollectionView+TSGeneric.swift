@@ -17,10 +17,10 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerCellNib<T: UICollectionViewCell>(aClass: T.Type) {
-        let name = String(aClass)
+    func ts_registerCellNib<T: UICollectionViewCell>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forCellWithReuseIdentifier: name)
+        self.register(nib, forCellWithReuseIdentifier: name)
     }
     
     /**
@@ -28,9 +28,9 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerCellClass<T: UICollectionViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forCellWithReuseIdentifier: name)
+    func ts_registerCellClass<T: UICollectionViewCell>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
+        self.register(aClass, forCellWithReuseIdentifier: name)
     }
     
     /**
@@ -41,9 +41,9 @@ public extension UICollectionView {
      
      - returns: cell
      */
-    func ts_dequeueReusableCell<T: UICollectionViewCell>(aClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T! {
-        let name = String(aClass)
-        guard let cell = dequeueReusableCellWithReuseIdentifier(name, forIndexPath: indexPath) as? T else {
+    func ts_dequeueReusableCell<T: UICollectionViewCell>(_ aClass: T.Type, forIndexPath indexPath: IndexPath) -> T! {
+        let name = String(describing: aClass)
+        guard let cell = dequeueReusableCell(withReuseIdentifier: name, for: indexPath) as? T else {
             fatalError("\(name) is not registed")
         }
         return cell
@@ -55,10 +55,10 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerHeaderNib<T: UICollectionReusableView>(aClass: T.Type) {
-        let name = String(aClass)
+    func ts_registerHeaderNib<T: UICollectionReusableView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
+        self.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
     }
     
     /**
@@ -66,9 +66,9 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerHeaderClass<T: UICollectionReusableView>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
+    func ts_registerHeaderClass<T: UICollectionReusableView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
+        self.register(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
     }
     
     /**
@@ -79,12 +79,12 @@ public extension UICollectionView {
      
      - returns: cell
      */
-    func ts_dequeueReusableHeader<T: UICollectionReusableView>(aClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T! {
-        let name = String(aClass)
-        guard let view = dequeueReusableSupplementaryViewOfKind(
-            UICollectionElementKindSectionHeader,
+    func ts_dequeueReusableHeader<T: UICollectionReusableView>(_ aClass: T.Type, forIndexPath indexPath: IndexPath) -> T! {
+        let name = String(describing: aClass)
+        guard let view = dequeueReusableSupplementaryView(
+            ofKind: UICollectionElementKindSectionHeader,
             withReuseIdentifier: name,
-            forIndexPath: indexPath) as? T else {
+            for: indexPath) as? T else {
                 fatalError("\(name) is not registed")
         }
         return view
@@ -96,10 +96,10 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerFooterNib<T: UICollectionReusableView>(aClass: T.Type) {
-        let name = String(aClass)
+    func ts_registerFooterNib<T: UICollectionReusableView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
+        self.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
     }
     
     /**
@@ -107,9 +107,9 @@ public extension UICollectionView {
      
      - parameter aClass: class
      */
-    func ts_registerFooterClass<T: UICollectionReusableView>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
+    func ts_registerFooterClass<T: UICollectionReusableView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
+        self.register(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
     }
     
     /**
@@ -120,12 +120,12 @@ public extension UICollectionView {
      
      - returns: cell
      */
-    func ts_dequeueReusableFooter<T: UICollectionReusableView>(aClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T! {
-        let name = String(aClass)
-        guard let view = dequeueReusableSupplementaryViewOfKind(
-            UICollectionElementKindSectionFooter,
+    func ts_dequeueReusableFooter<T: UICollectionReusableView>(_ aClass: T.Type, forIndexPath indexPath: IndexPath) -> T! {
+        let name = String(describing: aClass)
+        guard let view = dequeueReusableSupplementaryView(
+            ofKind: UICollectionElementKindSectionFooter,
             withReuseIdentifier: name,
-            forIndexPath: indexPath) as? T else {
+            for: indexPath) as? T else {
                 fatalError("\(name) is not registed")
         }
         return view

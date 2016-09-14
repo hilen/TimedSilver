@@ -16,10 +16,10 @@ public extension UITableView {
      
      - parameter aClass: class
      */
-    func ts_registerCellNib<T: UITableViewCell>(aClass: T.Type) {
-        let name = String(aClass)
+    func ts_registerCellNib<T: UITableViewCell>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forCellReuseIdentifier: name)
+        self.register(nib, forCellReuseIdentifier: name)
     }
     
     /**
@@ -27,9 +27,9 @@ public extension UITableView {
      
      - parameter aClass: class
      */
-    func ts_registerCellClass<T: UITableViewCell>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forCellReuseIdentifier: name)
+    func ts_registerCellClass<T: UITableViewCell>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
+        self.register(aClass, forCellReuseIdentifier: name)
     }
     
     /**
@@ -39,9 +39,9 @@ public extension UITableView {
      
      - returns: cell
      */
-    func ts_dequeueReusableCell<T: UITableViewCell>(aClass: T.Type) -> T! {
-        let name = String(aClass)
-        guard let cell = dequeueReusableCellWithIdentifier(name) as? T else {
+    func ts_dequeueReusableCell<T: UITableViewCell>(_ aClass: T.Type) -> T! {
+        let name = String(describing: aClass)
+        guard let cell = dequeueReusableCell(withIdentifier: name) as? T else {
             fatalError("\(name) is not registed")
         }
         return cell
@@ -53,10 +53,10 @@ public extension UITableView {
      
      - parameter aClass: class
      */
-    func ts_registerHeaderFooterNib<T: UIView>(aClass: T.Type) {
-        let name = String(aClass)
+    func ts_registerHeaderFooterNib<T: UIView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.registerNib(nib, forHeaderFooterViewReuseIdentifier: name)
+        self.register(nib, forHeaderFooterViewReuseIdentifier: name)
     }
     
     /**
@@ -64,9 +64,9 @@ public extension UITableView {
      
      - parameter aClass: class
      */
-    func ts_registerHeaderFooterClass<T: UIView>(aClass: T.Type) {
-        let name = String(aClass)
-        self.registerClass(aClass, forHeaderFooterViewReuseIdentifier: name)
+    func ts_registerHeaderFooterClass<T: UIView>(_ aClass: T.Type) {
+        let name = String(describing: aClass)
+        self.register(aClass, forHeaderFooterViewReuseIdentifier: name)
     }
     
     /**
@@ -76,9 +76,9 @@ public extension UITableView {
      
      - returns: cell
      */
-    func ts_dequeueReusableHeaderFooter<T: UIView>(aClass: T.Type) -> T! {
-        let name = String(aClass)
-        guard let cell = dequeueReusableHeaderFooterViewWithIdentifier(name) as? T else {
+    func ts_dequeueReusableHeaderFooter<T: UIView>(_ aClass: T.Type) -> T! {
+        let name = String(describing: aClass)
+        guard let cell = dequeueReusableHeaderFooterView(withIdentifier: name) as? T else {
             fatalError("\(name) is not registed")
         }
         return cell

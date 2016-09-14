@@ -14,6 +14,6 @@ public extension UIViewController {
     // http://stackoverflow.com/questions/2777438/how-to-tell-if-uiviewcontrollers-view-is-visible
     /// Check visible
     var ts_isVisible: Bool {
-        return self.isViewLoaded() && view.window != nil
+        return self.isViewLoaded && view.window != nil
     }
 }

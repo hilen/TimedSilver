@@ -19,7 +19,7 @@ public extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8 , value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         
@@ -90,14 +90,14 @@ public extension UIDevice {
 
     /// UUID
     var ts_UUIDString: String {
-        return UIDevice.currentDevice().identifierForVendor!.UUIDString
+        return UIDevice.current.identifierForVendor!.uuidString
     }
     
     /// Disk total
     var ts_totalDiskSpaceInBytes: Int64 {
         do {
-            let systemAttributes = try NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String)
-            let space = (systemAttributes[NSFileSystemSize] as? NSNumber)?.longLongValue
+            let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String)
+            let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value
             return space!
         } catch {
             return 0
@@ -107,8 +107,8 @@ public extension UIDevice {
     /// Disk free
     var ts_freeDiskSpaceInBytes: Int64 {
         do {
-            let systemAttributes = try NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String)
-            let freeSpace = (systemAttributes[NSFileSystemFreeSize] as? NSNumber)?.longLongValue
+            let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String)
+            let freeSpace = (systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber)?.int64Value
             return freeSpace!
         } catch {
             return 0
@@ -123,12 +123,12 @@ public extension UIDevice {
     
     /// IDFA
     var ts_IDFA: String {
-        return ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
     
     /// IDFV
     var ts_IDFV: String {
-        return UIDevice.currentDevice().identifierForVendor!.UUIDString
+        return UIDevice.current.identifierForVendor!.uuidString
     }
     
 }

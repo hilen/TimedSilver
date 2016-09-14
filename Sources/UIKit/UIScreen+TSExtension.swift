@@ -13,23 +13,23 @@ import UIKit
 public extension UIScreen {
     /// The screen size
     class var ts_size: CGSize {
-        return UIScreen.mainScreen().bounds.size
+        return UIScreen.main.bounds.size
     }
     
     /// The screen's width
     class var ts_width: CGFloat {
-        return UIScreen.mainScreen().bounds.size.width
+        return UIScreen.main.bounds.size.width
     }
     
     /// The screen's height
     class var ts_height: CGFloat {
-        return UIScreen.mainScreen().bounds.size.height
+        return UIScreen.main.bounds.size.height
     }
     
     /// The screen's orientation size
     class var ts_orientationSize: CGSize {
-        let systemVersion = (UIDevice.currentDevice().systemVersion as NSString).floatValue
-        let isLand: Bool = UIInterfaceOrientationIsLandscape(UIApplication.sharedApplication().statusBarOrientation)
+        let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
+        let isLand: Bool = UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)
         return (systemVersion > 8.0 && isLand) ? UIScreen.ts_swapSize(self.ts_size) : self.ts_size
     }
     
@@ -45,9 +45,9 @@ public extension UIScreen {
     
     /// The screen's DPI size
     class var ts_DPISize: CGSize {
-        let size: CGSize = UIScreen.mainScreen().bounds.size
-        let scale: CGFloat = UIScreen.mainScreen().scale
-        return CGSizeMake(size.width * scale, size.height * scale)
+        let size: CGSize = UIScreen.main.bounds.size
+        let scale: CGFloat = UIScreen.main.scale
+        return CGSize(width: size.width * scale, height: size.height * scale)
     }
     
     /**
@@ -57,16 +57,16 @@ public extension UIScreen {
      
      - returns: CGSize
      */
-    class func ts_swapSize(size: CGSize) -> CGSize {
-        return CGSizeMake(size.height, size.width)
+    class func ts_swapSize(_ size: CGSize) -> CGSize {
+        return CGSize(width: size.height, height: size.width)
     }
     
     /// The screen's height without status bar's height
     class var ts_screenHeightWithoutStatusBar: CGFloat {
-        if UIInterfaceOrientationIsPortrait(UIApplication.sharedApplication().statusBarOrientation) {
-            return UIScreen.mainScreen().bounds.size.height - UIApplication.sharedApplication().statusBarFrame.height
+        if UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation) {
+            return UIScreen.main.bounds.size.height - UIApplication.shared.statusBarFrame.height
         } else {
-            return UIScreen.mainScreen().bounds.size.width - UIApplication.sharedApplication().statusBarFrame.height
+            return UIScreen.main.bounds.size.width - UIApplication.shared.statusBarFrame.height
         }
     }
 }

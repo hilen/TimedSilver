@@ -6,26 +6,28 @@
 //  Created by Hilen on 8/10/16.
 //  Copyright © 2016 Hilen. All rights reserved.
 //
-//  https://github.com/radex/SwiftyTimer/blob/master/Sources/SwiftyTimer.swift
+//  https://github.com/radex/SwiftyTimer/blob/swift3/Sources/SwiftyTimer.swift
 
 import Foundation
 
-extension NSTimer {
+extension Timer {
     
     // MARK: Schedule timers
     
     /// Create and schedule a timer that will call `block` once after the specified time.
     
-    public class func ts_after(interval: NSTimeInterval, _ block: () -> Void) -> NSTimer {
-        let timer = NSTimer.ts_new(after: interval, block)
+    @discardableResult
+    public class func ts_after(_ interval: TimeInterval, _ block: @escaping () -> Void) -> Timer {
+        let timer = Timer.ts_new(after: interval, block)
         timer.ts_start()
         return timer
     }
     
     /// Create and schedule a timer that will call `block` repeatedly in specified time intervals.
     
-    public class func ts_every(interval: NSTimeInterval, _ block: () -> Void) -> NSTimer {
-        let timer = NSTimer.ts_new(every: interval, block)
+    @discardableResult
+    public class func ts_every(_ interval: TimeInterval, _ block: @escaping () -> Void) -> Timer {
+        let timer = Timer.ts_new(every: interval, block)
         timer.ts_start()
         return timer
     }
@@ -33,8 +35,9 @@ extension NSTimer {
     /// Create and schedule a timer that will call `block` repeatedly in specified time intervals.
     /// (This variant also passes the timer instance to the block)
     
-    @nonobjc public class func ts_every(interval: NSTimeInterval, _ block: NSTimer -> Void) -> NSTimer {
-        let timer = NSTimer.ts_new(every: interval, block)
+    @nonobjc @discardableResult
+    public class func ts_every(_ interval: TimeInterval, _ block: @escaping (Timer) -> Void) -> Timer {
+        let timer = Timer.ts_new(every: interval, block)
         timer.ts_start()
         return timer
     }
@@ -47,7 +50,7 @@ extension NSTimer {
     ///         Use `NSTimer.after` to create and schedule a timer in one step.
     /// - Note: The `new` class function is a workaround for a crashing bug when using convenience initializers (rdar://18720947)
     
-    public class func ts_new(after interval: NSTimeInterval, _ block: () -> Void) -> NSTimer {
+    public class func ts_new(after interval: TimeInterval, _ block: @escaping () -> Void) -> Timer {
         return CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, CFAbsoluteTimeGetCurrent() + interval, 0, 0, 0) { _ in
             block()
         }
@@ -59,7 +62,7 @@ extension NSTimer {
     ///         Use `NSTimer.every` to create and schedule a timer in one step.
     /// - Note: The `new` class function is a workaround for a crashing bug when using convenience initializers (rdar://18720947)
     
-    public class func ts_new(every interval: NSTimeInterval, _ block: () -> Void) -> NSTimer {
+    public class func ts_new(every interval: TimeInterval, _ block: @escaping () -> Void) -> Timer {
         return CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, CFAbsoluteTimeGetCurrent() + interval, interval, 0, 0) { _ in
             block()
         }
@@ -72,8 +75,8 @@ extension NSTimer {
     ///         Use `NSTimer.every` to create and schedule a timer in one step.
     /// - Note: The `new` class function is a workaround for a crashing bug when using convenience initializers (rdar://18720947)
     
-    @nonobjc public class func ts_new(every interval: NSTimeInterval, _ block: NSTimer -> Void) -> NSTimer {
-        var timer: NSTimer!
+    @nonobjc public class func ts_new(every interval: TimeInterval, _ block: @escaping (Timer) -> Void) -> Timer {
+        var timer: Timer!
         timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, CFAbsoluteTimeGetCurrent() + interval, interval, 0, 0) { _ in
             block(timer)
         }
@@ -87,11 +90,11 @@ extension NSTimer {
     /// By default, the timer is scheduled on the current run loop for the default mode.
     /// Specify `runLoop` or `modes` to override these defaults.
     
-    public func ts_start(runLoop runLoop: NSRunLoop = NSRunLoop.currentRunLoop(), modes: String...) {
-        let modes = modes.isEmpty ? [NSDefaultRunLoopMode] : modes
+    public func ts_start(runLoop: RunLoop = RunLoop.current, modes: RunLoopMode...) {
+        let modes = modes.isEmpty ? [RunLoopMode.defaultRunLoopMode] : modes
         
         for mode in modes {
-            runLoop.addTimer(self, forMode: mode)
+            runLoop.add(self, forMode: mode)
         }
     }
 }

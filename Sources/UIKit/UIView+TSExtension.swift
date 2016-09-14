@@ -18,9 +18,9 @@ public extension UIView {
      - returns: UINib
      */
     class func ts_Nib() -> UINib {
-        let hasNib: Bool = NSBundle.mainBundle().pathForResource(self.ts_className, ofType: "nib") != nil
+        let hasNib: Bool = Bundle.main.path(forResource: self.ts_className, ofType: "nib") != nil
         guard hasNib else {
-            assert(!hasNib, "Invalid parameter") // assert
+            fatalError("\(self.ts_className) nib is not exist")
             return UINib()
         }
         return UINib(nibName: self.ts_className, bundle:nil)
@@ -30,12 +30,19 @@ public extension UIView {
      Init from nib and get the view
      Notice: The nib file name is the same as the calss name
      
+     Demo： UIView.ts_viewFromNib(TSCustomView)
+     
      - parameter aClass: your class
      
      - returns: Your class's view
      */
-    class func ts_viewFromNib<T>(aClass: T.Type) -> T {
-        return self.ts_Nib().instantiateWithOwner(nil, options: nil)[0] as! T
+    class func ts_viewFromNib<T>(_ aClass: T.Type) -> T {
+        let name = String(describing: aClass)
+        if Bundle.main.path(forResource: name, ofType: "nib") != nil {
+            return UINib(nibName: name, bundle:nil).instantiate(withOwner: nil, options: nil)[0] as! T
+        } else {
+            fatalError("\(String(describing: aClass)) nib is not exist")
+        }
     }
 
     /**
@@ -50,7 +57,7 @@ public extension UIView {
             let subviews = stack[0].subviews as [UIView]
             views += subviews
             stack += subviews
-            stack.removeAtIndex(0)
+            stack.remove(at: 0)
         }
         return views
     }
@@ -61,25 +68,25 @@ public extension UIView {
      - returns: UIImage
      */
     func ts_takeSnapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.mainScreen().scale)
-        drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
     
     /// Check the view is visible
     var ts_visible: Bool {
         get {
-            if self.window == nil || self.hidden || self.alpha == 0 {
+            if self.window == nil || self.isHidden || self.alpha == 0 {
                 return true
             }
             
-            let viewRect = self.convertRect(self.bounds, toView: nil)
-            guard let window = UIApplication.sharedApplication().keyWindow else {
+            let viewRect = self.convert(self.bounds, to: nil)
+            guard let window = UIApplication.shared.keyWindow else {
                 return true
             }
-            return CGRectIntersectsRect(viewRect, window.bounds) == false
+            return viewRect.intersects(window.bounds) == false
         }
     }
 }

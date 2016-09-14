@@ -11,18 +11,18 @@ import UIKit
 
 // https://github.com/onevcat/Kingfisher/blob/master/Sources/ThreadHelper.swift
 
-public func ts_dispatch_async_safely_to_main_queue(block: ()->()) {
-    ts_dispatch_async_safely_to_queue(dispatch_get_main_queue(), block)
+public func ts_dispatch_async_safely_to_main_queue(_ block: @escaping ()->()) {
+    ts_dispatch_async_safely_to_queue(DispatchQueue.main, block)
 }
 
 // This methd will dispatch the `block` to a specified `queue`.
 // If the `queue` is the main queue, and current thread is main thread, the block
 // will be invoked immediately instead of being dispatched.
-public func ts_dispatch_async_safely_to_queue(queue: dispatch_queue_t, _ block: ()->()) {
-    if queue === dispatch_get_main_queue() && NSThread.isMainThread() {
+public func ts_dispatch_async_safely_to_queue(_ queue: DispatchQueue, _ block: @escaping ()->()) {
+    if queue === DispatchQueue.main && Thread.isMainThread {
         block()
     } else {
-        dispatch_async(queue) {
+        queue.async {
             block()
         }
     }
@@ -30,7 +30,7 @@ public func ts_dispatch_async_safely_to_queue(queue: dispatch_queue_t, _ block: 
 
 /// Print log
 public func ts_debugPrint<T>(
-    message: T,
+    _ message: T,
     file: String = #file,
     method: String = #function,
     line: Int = #line)

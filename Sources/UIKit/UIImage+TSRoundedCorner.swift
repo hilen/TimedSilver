@@ -21,7 +21,7 @@ public extension UIImage {
      
      - returns: a new image
      */
-    func ts_roundCorners(cornerRadius:CGFloat) -> UIImage? {
+    func ts_roundCorners(_ cornerRadius:CGFloat) -> UIImage? {
         // If the image does not have an alpha layer, add one
         let imageWithAlpha = ts_applyAlpha()
         if imageWithAlpha == nil {
@@ -29,35 +29,35 @@ public extension UIImage {
         }
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        let width = CGImageGetWidth(imageWithAlpha?.CGImage)
-        let height = CGImageGetHeight(imageWithAlpha?.CGImage)
-        let bits = CGImageGetBitsPerComponent(imageWithAlpha?.CGImage)
-        let colorSpace = CGImageGetColorSpace(imageWithAlpha?.CGImage)
-        let bitmapInfo = CGImageGetBitmapInfo(imageWithAlpha?.CGImage)
-        let context = CGBitmapContextCreate(nil, width, height, bits, 0, colorSpace, bitmapInfo.rawValue)
-        let rect = CGRect(x: 0, y: 0, width: CGFloat(width)*scale, height: CGFloat(height)*scale)
+        let width = imageWithAlpha?.cgImage?.width
+        let height = imageWithAlpha?.cgImage?.height
+        let bits = imageWithAlpha?.cgImage?.bitsPerComponent
+        let colorSpace = imageWithAlpha?.cgImage?.colorSpace
+        let bitmapInfo = imageWithAlpha?.cgImage?.bitmapInfo
+        let context = CGContext(data: nil, width: width!, height: height!, bitsPerComponent: bits!, bytesPerRow: 0, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
+        let rect = CGRect(x: 0, y: 0, width: CGFloat(width!)*scale, height: CGFloat(height!)*scale)
         
-        CGContextBeginPath(context)
+        context?.beginPath()
         if (cornerRadius == 0) {
-            CGContextAddRect(context, rect)
+            context?.addRect(rect)
         } else {
-            CGContextSaveGState(context)
-            CGContextTranslateCTM(context, rect.minX, rect.minY)
-            CGContextScaleCTM(context, cornerRadius, cornerRadius)
+            context?.saveGState()
+            context?.translateBy(x: rect.minX, y: rect.minY)
+            context?.scaleBy(x: cornerRadius, y: cornerRadius)
             let fw = rect.size.width / cornerRadius
             let fh = rect.size.height / cornerRadius
-            CGContextMoveToPoint(context, fw, fh/2)
-            CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 1)
-            CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 1)
-            CGContextAddArcToPoint(context, 0, 0, fw/2, 0, 1)
-            CGContextAddArcToPoint(context, fw, 0, fw, fh/2, 1)
-            CGContextRestoreGState(context)
+            context?.move(to: CGPoint(x: fw, y: fh/2))
+            context?.addArc(tangent1End: CGPoint.init(x: fw, y: fh), tangent2End: CGPoint.init(x: fw/2, y: fh), radius: 1)
+            context?.addArc(tangent1End: CGPoint.init(x: 0, y: fh), tangent2End: CGPoint.init(x: 0, y: fh/2), radius: 1)
+            context?.addArc(tangent1End: CGPoint.init(x: 0, y: 0), tangent2End: CGPoint.init(x: fw/2, y: 0), radius: 1)
+            context?.addArc(tangent1End: CGPoint.init(x: fw, y: 0), tangent2End: CGPoint.init(x: fw, y: fh/2), radius: 1)
+            context?.restoreGState()
         }
-        CGContextClosePath(context)
-        CGContextClip(context)
+        context?.closePath()
+        context?.clip()
         
-        CGContextDrawImage(context, rect, imageWithAlpha?.CGImage)
-        let image = UIImage(CGImage: CGBitmapContextCreateImage(context)!, scale:scale, orientation: .Up)
+        context?.draw((imageWithAlpha?.cgImage)!, in: rect)
+        let image = UIImage(cgImage: (context?.makeImage()!)!, scale:scale, orientation: .up)
         UIGraphicsEndImageContext()
         return image
     }
