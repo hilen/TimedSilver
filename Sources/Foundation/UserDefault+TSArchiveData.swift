@@ -1,5 +1,5 @@
 //
-//  NSUserDefault+TSArchiveData.swift
+//  UserDefault+TSArchiveData.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

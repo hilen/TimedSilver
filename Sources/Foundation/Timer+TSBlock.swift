@@ -1,5 +1,5 @@
 //
-//  NSTimer+TSBlock.swift
+//  Timer+TSBlock.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

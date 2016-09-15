@@ -1,5 +1,5 @@
 //
-//  NSUserDefault+TSExtension.swift
+//  UserDefault+TSExtension.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

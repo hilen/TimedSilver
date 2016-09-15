@@ -22,7 +22,7 @@ import Foundation
 public extension NSIndexSet {
     func ts_indexPathsFromIndexes(section: NSInteger) -> [NSIndexPath] {
         var indexPaths = [NSIndexPath]()
-        self.enumerateIndexesUsingBlock { index, stop in
+        self.enumerate { index, stop in
             let path = NSIndexPath(forItem: index, inSection: section)
             indexPaths.append(path)
         }

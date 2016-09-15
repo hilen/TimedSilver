@@ -1,5 +1,5 @@
 //
-//  NSDate+TSExtension.swift
+//  Date+TSExtension.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

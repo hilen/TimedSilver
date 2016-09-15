@@ -54,30 +54,34 @@ public extension UIViewController {
         button.contentHorizontalAlignment = .left
         
         button.ts_addEventHandler(forControlEvent: .touchUpInside, handler: {[weak self] in
-            if self!.navigationController!.viewControllers.count > 1 {
-                self!.navigationController?.popViewController(animated: true)
-            } else if (self!.presentingViewController != nil) {
-                self!.dismiss(animated: true, completion: nil)
+            guard let strongSelf = self else { return }
+            guard let navigationController = strongSelf.navigationController else {
+                assert(false, "Your target ViewController doesn't have a UINavigationController")
+            }
+            
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewController(animated: true)
+            } else if (strongSelf.presentingViewController != nil) {
+                strongSelf.dismiss(animated: true, completion: nil)
             }
         })
         
         let barButton = UIBarButtonItem(customView: button)
         let gapItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         gapItem.width = -7  //fix the space
-        self.navigationItem.leftBarButtonItems = [gapItem, barButton]
+        navigationItem.leftBarButtonItems = [gapItem, barButton]
     }
     
     /**
      Back to previous, pop or dismiss
      */
     func ts_backToPrevious() {
-        guard self.navigationController != nil else {
+        guard let navigationController = self.navigationController else {
             assert(false, "Your target ViewController doesn't have a UINavigationController")
-            return
         }
-        
-        if self.navigationController!.viewControllers.count > 1 {
-            self.navigationController?.popViewController(animated: true)
+
+        if navigationController.viewControllers.count > 1 {
+            navigationController.popViewController(animated: true)
         } else if (self.presentingViewController != nil) {
             self.dismiss(animated: true, completion: nil)
         }

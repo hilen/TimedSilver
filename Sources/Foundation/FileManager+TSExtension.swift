@@ -1,5 +1,5 @@
 //
-//  NSFileManager+TSExtension.swift
+//  FileManager+TSExtension.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //
@@ -70,9 +70,10 @@ public extension FileManager {
      - parameter filePath: Path to a file to set an attribute.
      */
     class func ts_addSkipBackupAttributeToFile(_ filePath: String) {
-        if let url: URL = URL(fileURLWithPath: filePath) {
-            do { try (url as NSURL).setResourceValue(NSNumber(value: true as Bool), forKey: URLResourceKey.isExcludedFromBackupKey) } catch {}
-        }
+        let url: URL = URL(fileURLWithPath: filePath)
+        do {
+            try (url as NSURL).setResourceValue(NSNumber(value: true as Bool), forKey: URLResourceKey.isExcludedFromBackupKey)
+        } catch {}
     }
     
     /**

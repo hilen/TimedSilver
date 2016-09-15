@@ -1,5 +1,5 @@
 //
-//  NSIndexPath+TSOffset.swift
+//  IndexPath+TSOffset.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

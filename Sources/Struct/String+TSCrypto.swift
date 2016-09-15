@@ -35,7 +35,7 @@ public extension String {
 }
 
 /** array of bytes, little-endian representation */
-func arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
+func ts_arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
     let totalBytes = length ?? (MemoryLayout<T>.size * 8)
     
     let valuePointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
@@ -58,7 +58,7 @@ func arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
 extension Int {
     /** Array of bytes with optional padding (little-endian) */
     func bytes(_ totalBytes: Int = MemoryLayout<Int>.size) -> [UInt8] {
-        return arrayOfBytes(self, length: totalBytes)
+        return ts_arrayOfBytes(self, length: totalBytes)
     }
     
 }
@@ -72,14 +72,14 @@ extension NSMutableData {
     
 }
 
-protocol HashProtocol {
+protocol ts_HashProtocol {
     var message: Array<UInt8> { get }
     
     /** Common part for hash calculation. Prepare header data. */
     func prepare(_ len: Int) -> Array<UInt8>
 }
 
-extension HashProtocol {
+extension ts_HashProtocol {
     
     func prepare(_ len: Int) -> Array<UInt8> {
         var tmpMessage = message
@@ -150,7 +150,7 @@ func rotateLeft(_ value: UInt32, bits: UInt32) -> UInt32 {
     return ((value << bits) & 0xFFFFFFFF) | (value >> (32 - bits))
 }
 
-class TS_MD5: HashProtocol {
+class TS_MD5: ts_HashProtocol {
     
     static let size = 16 // 128 / 8
     let message: [UInt8]

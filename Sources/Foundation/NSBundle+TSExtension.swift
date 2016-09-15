@@ -7,6 +7,7 @@
 //  Copyright © 2016 Hilen. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 public extension Bundle {

@@ -36,6 +36,43 @@ public extension String {
             ).size
         return size.height
     }
+    
+    /**
+     NSRange to Range<String.Index>
+     http://stackoverflow.com/questions/25138339/nsrange-to-rangestring-index
+     
+     - parameter range: Range
+     
+     - returns: NSRange
+     */
+    
+    func ts_NSRange(fromRange range: Range<Index>) -> NSRange {
+        let from = range.lowerBound
+        let to = range.upperBound
+        
+        let location = characters.distance(from: startIndex, to: from)
+        let length = characters.distance(from: from, to: to)
+        
+        return NSRange(location: location, length: length)
+    }
+    
+    /** 
+     Range<String.Index> to NSRange
+     http://stackoverflow.com/questions/25138339/nsrange-to-rangestring-index
+    
+     - parameter nsRange: The NSRange
+    
+     - returns: Range<String.Index>
+    */
+    func ts_Range(from nsRange: NSRange) -> Range<String.Index>? {
+        guard
+            let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
+            let to16 = utf16.index(from16, offsetBy: nsRange.length, limitedBy: utf16.endIndex),
+            let from = String.Index(from16, within: self),
+            let to = String.Index(to16, within: self)
+            else { return nil }
+        return from ..< to
+    }
 }
 
 

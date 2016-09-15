@@ -1,5 +1,5 @@
 //
-//  NSURLRequest+TScURLCommand.swift
+//  URLRequest+TScURLCommand.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

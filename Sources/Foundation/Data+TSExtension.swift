@@ -1,5 +1,5 @@
 //
-//  NSData+TSExtension.swift
+//  Data+TSExtension.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

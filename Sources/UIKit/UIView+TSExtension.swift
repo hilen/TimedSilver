@@ -20,7 +20,7 @@ public extension UIView {
     class func ts_Nib() -> UINib {
         let hasNib: Bool = Bundle.main.path(forResource: self.ts_className, ofType: "nib") != nil
         guard hasNib else {
-            fatalError("\(self.ts_className) nib is not exist")
+            assert(!hasNib, "Nib is not exist")
             return UINib()
         }
         return UINib(nibName: self.ts_className, bundle:nil)
