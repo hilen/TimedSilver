@@ -20,6 +20,7 @@ public extension UIAlertController {
      
      - returns: UIAlertController
      */
+    @discardableResult
     class func ts_singleButtonAlertWithTitle(
         _ title: String,
         message: String,
@@ -48,6 +49,7 @@ public extension UIAlertController {
      
      - returns: UIAlertController
      */
+    @discardableResult
     class func ts_doubleButtonAlertWithTitle(
         _ title: String,
         message: String,

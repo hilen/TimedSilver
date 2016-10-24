@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class TSClosureWrapper : NSObject {
+fileprivate class TSClosureWrapper : NSObject {
     let _callback : (Void) -> Void
     init(callback : @escaping (Void) -> Void) {
         _callback = callback
@@ -22,7 +22,7 @@ class TSClosureWrapper : NSObject {
     }
 }
 
-private var AssociatedClosure: UInt8 = 0
+fileprivate var AssociatedClosure: UInt8 = 0
 
 
 public extension UIControl {

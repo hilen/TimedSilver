@@ -1,5 +1,5 @@
 //
-//  NSBundle+TSExtension.swift
+//  Bundle+TSExtension.swift
 //  TimedSilver
 //  Source: https://github.com/hilen/TimedSilver
 //

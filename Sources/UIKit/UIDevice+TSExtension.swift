@@ -42,6 +42,8 @@ public extension UIDevice {
         case "iPhone8,1": return "iPhone 6s"
         case "iPhone8,2": return "iPhone 6s Plus"
         case "iPhone8,4": return "iPhone SE"
+        case "iPhone9,1": return "iPhone 7"
+        case "iPhone9,2": return "iPhone 7 Plus"
         //iPod
         case "iPod1,1": return "iPod Touch 1G"
         case "iPod2,1": return "iPod Touch 2G"

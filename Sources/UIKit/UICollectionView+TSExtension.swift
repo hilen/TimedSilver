@@ -97,17 +97,14 @@ public extension UICollectionView {
      
      - returns: NSIndexPath Array
      */
-    func ts_indexPathsForElementsInRect(_ rect: CGRect) -> [IndexPath]? {
-        guard let allLayoutAttributes = self.collectionViewLayout.layoutAttributesForElements(in: rect) else {
-            return nil
-        }
-        if allLayoutAttributes.count == 0 {
-            return nil
-        }
-        
-        var indexPaths = [IndexPath]()
-        for layoutAttributes in allLayoutAttributes {
-            indexPaths.append(layoutAttributes.indexPath)
+    func ts_indexPathsForElementsInRect(_ rect: CGRect) -> [IndexPath] {
+        let allLayoutAttributes = self.collectionViewLayout.layoutAttributesForElements(in: rect)
+        if (allLayoutAttributes?.count ?? 0) == 0 {return []}
+        var indexPaths: [IndexPath] = []
+        indexPaths.reserveCapacity(allLayoutAttributes!.count)
+        for layoutAttributes in allLayoutAttributes! {
+            let indexPath = layoutAttributes.indexPath
+            indexPaths.append(indexPath)
         }
         return indexPaths
     }

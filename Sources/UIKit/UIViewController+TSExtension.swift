@@ -55,14 +55,14 @@ public extension UIViewController {
         
         button.ts_addEventHandler(forControlEvent: .touchUpInside, handler: {[weak self] in
             guard let strongSelf = self else { return }
-            guard let navigationController = strongSelf.navigationController else {
+            if let navigationController = strongSelf.navigationController {
+                if navigationController.viewControllers.count > 1 {
+                    navigationController.popViewController(animated: true)
+                } else if (strongSelf.presentingViewController != nil) {
+                    strongSelf.dismiss(animated: true, completion: nil)
+                }
+            } else {
                 assert(false, "Your target ViewController doesn't have a UINavigationController")
-            }
-            
-            if navigationController.viewControllers.count > 1 {
-                navigationController.popViewController(animated: true)
-            } else if (strongSelf.presentingViewController != nil) {
-                strongSelf.dismiss(animated: true, completion: nil)
             }
         })
         
@@ -76,14 +76,14 @@ public extension UIViewController {
      Back to previous, pop or dismiss
      */
     func ts_backToPrevious() {
-        guard let navigationController = self.navigationController else {
+        if let navigationController = self.navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewController(animated: true)
+            } else if (self.presentingViewController != nil) {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } else {
             assert(false, "Your target ViewController doesn't have a UINavigationController")
-        }
-
-        if navigationController.viewControllers.count > 1 {
-            navigationController.popViewController(animated: true)
-        } else if (self.presentingViewController != nil) {
-            self.dismiss(animated: true, completion: nil)
         }
     }
 

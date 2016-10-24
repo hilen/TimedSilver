@@ -24,13 +24,13 @@ public extension IndexPath {
     
     /// The previous item's NSIndexPath. UICollectionView
     var ts_previousItem: IndexPath {
-        let indexPath = IndexPath(row: (self as NSIndexPath).item - 1, section: (self as NSIndexPath).section)
+        let indexPath = IndexPath(item: (self as NSIndexPath).item - 1, section: (self as NSIndexPath).section)
         return indexPath
     }
     
     /// The next item's NSIndexPath. UICollectionView
     var ts_nextItem: IndexPath {
-        let indexPath = IndexPath(row: (self as NSIndexPath).item + 1, section: (self as NSIndexPath).section)
+        let indexPath = IndexPath(item: (self as NSIndexPath).item + 1, section: (self as NSIndexPath).section)
         return indexPath
     }
     

@@ -54,6 +54,7 @@ public extension UIImage {
      
      - returns: UIImage
      */
+    @discardableResult
     class func ts_screenCaptureWithView(_ view: UIView, rect: CGRect) -> UIImage {
         let capture: UIImage
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 1.0)

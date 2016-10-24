@@ -24,6 +24,7 @@ public extension NotificationCenter {
      
      - returns: AnyObject
      */
+    @discardableResult
     func ts_addObserver<T: AnyObject>(_ observer: T, name aName: String?, object anObject: AnyObject?, queue: OperationQueue? = OperationQueue.main, handler: @escaping (_ observer: T, _ notification: Notification) -> Void) -> AnyObject {
         let observation = addObserver(forName: aName.map { NSNotification.Name(rawValue: $0) }, object: anObject, queue: queue) { [unowned observer] note in
             handler(observer, note)
