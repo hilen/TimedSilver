@@ -9,9 +9,17 @@
 
 import Foundation
 
+/// Shortcut for `UserDefaults.standard`
+///
+/// **Pro-Tip:** If you want to use shared user defaults, just
+///  redefine this global shortcut in your app target, like so:
+///  ~~~
+///  TSUserDefaults = UserDefaults(suiteName: "com.my.app")!
+///  ~~~
+public var TSUserDefaults = UserDefaults.standard
+
 public extension UserDefaults {
     // MARK: - Getter
-    
     /**
      Get object from NSUserDefaults
      
@@ -24,7 +32,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue
         }
-        return UserDefaults.standard.object(forKey: key) as AnyObject?
+        return TSUserDefaults.object(forKey: key) as AnyObject?
     }
     
     /**
@@ -39,7 +47,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.integer(forKey: key)
+        return TSUserDefaults.integer(forKey: key)
     }
     
     /**
@@ -54,7 +62,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.bool(forKey: key)
+        return TSUserDefaults.bool(forKey: key)
     }
     
     /**
@@ -69,7 +77,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.float(forKey: key)
+        return TSUserDefaults.float(forKey: key)
     }
 
     /**
@@ -84,7 +92,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.double(forKey: key)
+        return TSUserDefaults.double(forKey: key)
     }
     
     /**
@@ -99,7 +107,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.string(forKey: key)
+        return TSUserDefaults.string(forKey: key)
     }
     
     /**
@@ -114,7 +122,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.data(forKey: key)
+        return TSUserDefaults.data(forKey: key)
     }
     
     /**
@@ -129,7 +137,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.url(forKey: key)
+        return TSUserDefaults.url(forKey: key)
     }
     
     /**
@@ -144,7 +152,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.array(forKey: key) as [AnyObject]?
+        return TSUserDefaults.array(forKey: key) as [AnyObject]?
     }
     
     /**
@@ -159,7 +167,7 @@ public extension UserDefaults {
         if (defaultValue != nil) && ts_objectForKey(key) == nil {
             return defaultValue!
         }
-        return UserDefaults.standard.dictionary(forKey: key) as [String : AnyObject]?
+        return TSUserDefaults.dictionary(forKey: key) as [String : AnyObject]?
     }
 
     // MARK: - Setter
@@ -172,11 +180,11 @@ public extension UserDefaults {
      */
     class func ts_setObject(_ key: String, value: AnyObject?) {
         if value == nil {
-            UserDefaults.standard.removeObject(forKey: key)
+            TSUserDefaults.removeObject(forKey: key)
         } else {
-            UserDefaults.standard.set(value, forKey: key)
+            TSUserDefaults.set(value, forKey: key)
         }
-        UserDefaults.standard.synchronize()
+        TSUserDefaults.synchronize()
     }
     
     /**
@@ -186,8 +194,8 @@ public extension UserDefaults {
      - parameter value: value
      */
     class func ts_setInteger(_ key: String, value: Int) {
-        UserDefaults.standard.set(value, forKey: key)
-        UserDefaults.standard.synchronize()
+        TSUserDefaults.set(value, forKey: key)
+        TSUserDefaults.synchronize()
     }
     
     /**
@@ -197,8 +205,8 @@ public extension UserDefaults {
      - parameter value: value
      */
     class func ts_setBool(_ key: String, value: Bool) {
-        UserDefaults.standard.set(value, forKey: key)
-        UserDefaults.standard.synchronize()
+        TSUserDefaults.set(value, forKey: key)
+        TSUserDefaults.synchronize()
     }
     
     /**
@@ -208,8 +216,8 @@ public extension UserDefaults {
      - parameter value: value
      */
     class func ts_setFloat(_ key: String, value: Float) {
-        UserDefaults.standard.set(value, forKey: key)
-        UserDefaults.standard.synchronize()
+        TSUserDefaults.set(value, forKey: key)
+        TSUserDefaults.synchronize()
     }
     
     /**
@@ -218,13 +226,13 @@ public extension UserDefaults {
      - parameter key:   key
      - parameter value: value
      */
-    class func ts_setString(_ key: String, value: NSString?) {
+    class func ts_setString(_ key: String, value: String?) {
         if (value == nil) {
-            UserDefaults.standard.removeObject(forKey: key)
+            TSUserDefaults.removeObject(forKey: key)
         } else {
-            UserDefaults.standard.set(value, forKey: key)
+            TSUserDefaults.set(value, forKey: key)
         }
-        UserDefaults.standard.synchronize()
+        TSUserDefaults.synchronize()
     }
     
     /**

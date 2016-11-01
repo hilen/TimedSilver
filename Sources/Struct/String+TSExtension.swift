@@ -17,24 +17,57 @@ public extension String {
     }
     
     /**
+     Calculate the size of string, and limit the width
+     
+     - parameter width: width
+     - parameter font:     font
+     
+     - returns: size value
+     */
+    func ts_sizeWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGSize {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let size: CGSize = self.boundingRect(
+            with: constraintRect,
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: [NSFontAttributeName: font],
+            context: nil
+            ).size
+        return size
+    }
+    
+    /**
      Calculate the height of string, and limit the width
      
-     - parameter maxWidth: width
-     - parameter font:     font
+     - parameter width: width
+     - parameter font:  font
      
      - returns: height value
      */
-    func ts_stringHeightWithMaxWidth(_ maxWidth: CGFloat, font: UIFont) -> CGFloat {
-        let attributes: [String : AnyObject] = [
-            NSFontAttributeName: font,
-        ]
-        let size: CGSize = self.boundingRect(
-            with: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: attributes,
-            context: nil
-            ).size
-        return size.height
+    func ts_heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(
+            with: constraintRect,
+            options: .usesLineFragmentOrigin,
+            attributes: [NSFontAttributeName: font],
+            context: nil)
+        return boundingBox.height
+    }
+    
+    /**
+     Calculate the width of string with current font size.
+     
+     - parameter font:  font
+     
+     - returns: height value
+     */
+    func ts_widthWithCurrentFont(_ font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: font.pointSize)
+        let boundingBox = self.boundingRect(
+            with: constraintRect,
+            options: .usesLineFragmentOrigin,
+            attributes: [NSFontAttributeName: font],
+            context: nil)
+        return boundingBox.width
     }
     
     /**

@@ -76,8 +76,12 @@ public extension UIAlertController {
         self.ts_present(true, completion: nil)
     }
     
+    @available(iOS 8.0, *)
     func ts_present(_ animated: Bool, completion: (() -> Void)?) {
-        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+        guard let app = UIApplication.ts_sharedApplication() else {
+            return
+        }
+        if let rootVC = app.keyWindow?.rootViewController {
             self.ts_presentFromController(rootVC, animated: animated, completion: completion)
         }
     }

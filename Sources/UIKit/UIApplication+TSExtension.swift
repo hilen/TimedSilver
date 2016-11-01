@@ -11,14 +11,43 @@ import Foundation
 import UIKit
 
 extension UIApplication {
+
+    /// Avoid the error: [UIApplication sharedApplication] is unavailable in xxx extension
+    ///
+    /// - returns: UIApplication?
+    public class func ts_sharedApplication() ->  UIApplication? {
+        let selector = NSSelectorFromString("sharedApplication")
+        guard UIApplication.responds(to: selector) else { return nil }
+        return UIApplication.perform(selector).takeUnretainedValue() as? UIApplication
+    }
+
+//    public class func ts_sharedApplication() -> UIApplication? {
+//        guard UIApplication.responds(to: #selector(getter: UIApplication.shared)) else {
+//            return nil
+//        }
+//        
+//        guard let unmanagedSharedApplication = UIApplication.perform(#selector(getter: UIApplication.shared)) else {
+//            return nil
+//        }
+//        
+//        return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
+//    }
+
     ///Get screen orientation
-    public static var ts_screenOrientation: UIInterfaceOrientation {
-        return UIApplication.shared.statusBarOrientation
+    public class var ts_screenOrientation: UIInterfaceOrientation? {
+        guard let app = self.ts_sharedApplication() else {
+            return nil
+        }
+        return app.statusBarOrientation
     }
     
     ///Get status bar's height
-    public static var ts_screenStatusBarHeight: CGFloat {
-        return UIApplication.shared.statusBarFrame.height
+    @available(iOS 8.0, *)
+    public class var ts_screenStatusBarHeight: CGFloat {
+        guard let app = UIApplication.ts_sharedApplication() else {
+            return 0
+        }
+        return app.statusBarFrame.height
     }
     
     //https://github.com/goktugyil/EZSwiftExtensions/blob/master/Sources/UIApplicationExtensions.swift

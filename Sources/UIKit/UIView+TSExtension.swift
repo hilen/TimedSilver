@@ -76,6 +76,7 @@ public extension UIView {
     }
     
     /// Check the view is visible
+    @available(iOS 8.0, *)
     var ts_visible: Bool {
         get {
             if self.window == nil || self.isHidden || self.alpha == 0 {
@@ -83,7 +84,10 @@ public extension UIView {
             }
             
             let viewRect = self.convert(self.bounds, to: nil)
-            guard let window = UIApplication.shared.keyWindow else {
+            guard let app = UIApplication.ts_sharedApplication() else {
+                return false
+            }
+            guard let window = app.keyWindow else {
                 return true
             }
             return viewRect.intersects(window.bounds) == false
