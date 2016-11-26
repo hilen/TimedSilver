@@ -15,23 +15,26 @@ end
 ```
 
 ## Documentation
-[See the detail API documentation](http://cocoadocs.org/docsets/TimedSilver/0.1/index.html)
+[See the detail API documentation](http://cocoadocs.org/docsets/TimedSilver/1.0.0/index.html)
 
 ```
 ├── Foundation
-│   ├── NSBundle+TSExtension.swift
-│   ├── NSData+TSExtension.swift
-│   ├── NSDate+TSExtension.swift
+│   ├── Bundle+TSExtension.swift
+│   ├── Data+TSExtension.swift
+│   ├── Date+TSExtension.swift
+│   ├── DispatchQueue+TSExtension.swift
+│   ├── FileManager+TSExtension.swift
+│   ├── IndexPath+TSOffset.swift
+│   ├── IndexSet+TSExtension.swift
 │   ├── NSDictionary+TSExtension.swift
-│   ├── NSFileManager+TSExtension.swift
-│   ├── NSIndexPath+TSOffset.swift
-│   ├── NSNotificationCenter+TSBlock.swift
 │   ├── NSObject+TSExtension.swift
+│   ├── NSRange+TSExtension.swift
 │   ├── NSString+TSExtension.swift
-│   ├── NSTimer+TSBlock.swift
-│   ├── NSURLRequest+TScURLCommand.swift
-│   ├── NSUserDefault+TSArchiveData.swift
-│   └── NSUserDefault+TSExtension.swift
+│   ├── NotificationCenter+TSBlock.swift
+│   ├── Timer+TSBlock.swift
+│   ├── URLRequest+TScURLCommand.swift
+│   ├── UserDefaults+TSArchiveData.swift
+│   └── UserDefaults+TSExtension.swift
 ├── Struct
 │   ├── Array+TSExtension.swift
 │   ├── CGSize+TSExtension.swift
@@ -40,11 +43,11 @@ end
 │   ├── String+TSCrypto.swift
 │   └── String+TSExtension.swift
 ├── TimedSilverHeader.h
-├── TimedSilverHelper.swift
 └── UIKit
     ├── UIAlertController+TSExtension.swift
     ├── UIApplication+TSExtension.swift
     ├── UIButton+TSExtension.swift
+    ├── UIButton+TSTouchArea.swift
     ├── UICollectionView+TSExtension.swift
     ├── UICollectionView+TSGeneric.swift
     ├── UIColor+TSExtension.swift
@@ -69,6 +72,7 @@ end
     ├── UITableView+TSiOS7SettingStyle.swift
     ├── UIView+TSExtension.swift
     ├── UIView+TSFrame.swift
+    ├── UIView+TSGestureBlock.swift
     ├── UIViewController+TSExtension.swift
     ├── UIViewController+TSVisible.swift
     └── UIWindow+TSHierarchy.swift
