@@ -21,18 +21,6 @@ extension UIApplication {
         return UIApplication.perform(selector).takeUnretainedValue() as? UIApplication
     }
 
-//    public class func ts_sharedApplication() -> UIApplication? {
-//        guard UIApplication.responds(to: #selector(getter: UIApplication.shared)) else {
-//            return nil
-//        }
-//        
-//        guard let unmanagedSharedApplication = UIApplication.perform(#selector(getter: UIApplication.shared)) else {
-//            return nil
-//        }
-//        
-//        return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
-//    }
-
     ///Get screen orientation
     public class var ts_screenOrientation: UIInterfaceOrientation? {
         guard let app = self.ts_sharedApplication() else {
@@ -50,7 +38,6 @@ extension UIApplication {
         return app.statusBarFrame.height
     }
     
-    //https://github.com/goktugyil/EZSwiftExtensions/blob/master/Sources/UIApplicationExtensions.swift
     /**
      Run a block in background after app resigns activity
      
