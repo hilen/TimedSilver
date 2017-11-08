@@ -62,10 +62,10 @@ private func ts_observationRemoversForObject(_ object: AnyObject) -> NSMutableAr
         }
     }
     
-    var retainedRemovers = objc_getAssociatedObject(object, TSObservationRemoverKey) as! NSMutableArray?
+    var retainedRemovers = objc_getAssociatedObject(object, TSObservationRemoverKey!) as! NSMutableArray?
     if retainedRemovers == nil {
         retainedRemovers = NSMutableArray()
-        objc_setAssociatedObject(object, TSObservationRemoverKey, retainedRemovers, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        objc_setAssociatedObject(object, TSObservationRemoverKey!, retainedRemovers, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
     return retainedRemovers!
 }

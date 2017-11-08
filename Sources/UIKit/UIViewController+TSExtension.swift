@@ -41,7 +41,7 @@ public extension UIViewController {
      - parameter backImage: Your image. 20px * 20px is perfect
      - parameter action:    Handler
      */
-    func ts_leftBackBarButton(_ backImage: UIImage, action: (Void) -> Void) {
+    func ts_leftBackBarButton(_ backImage: UIImage, action: () -> Void) {
         guard self.navigationController != nil else {
             assert(false, "Your target ViewController doesn't have a UINavigationController")
             return

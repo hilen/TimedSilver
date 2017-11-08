@@ -13,7 +13,7 @@ import UIKit
 public extension String {
     /// String's length
     var ts_length: Int {
-        return self.characters.count
+        return self.count
     }
     
     /**
@@ -29,7 +29,7 @@ public extension String {
         let size: CGSize = self.boundingRect(
             with: constraintRect,
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: font],
+            attributes: [NSAttributedStringKey.font: font],
             context: nil
             ).size
         return size
@@ -48,7 +48,7 @@ public extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: font],
+            attributes: [NSAttributedStringKey.font: font],
             context: nil)
         return boundingBox.height
     }
@@ -65,7 +65,7 @@ public extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: font],
+            attributes: [NSAttributedStringKey.font: font],
             context: nil)
         return boundingBox.width
     }
@@ -83,8 +83,8 @@ public extension String {
         let from = range.lowerBound
         let to = range.upperBound
         
-        let location = characters.distance(from: startIndex, to: from)
-        let length = characters.distance(from: from, to: to)
+        let location = self.distance(from: startIndex, to: from)
+        let length = self.distance(from: from, to: to)
         
         return NSRange(location: location, length: length)
     }

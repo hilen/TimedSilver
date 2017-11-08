@@ -11,7 +11,7 @@ import Foundation
 
 extension URLRequest {
     fileprivate func escapeQuotesInString(_ string: String) -> String {
-        assert(string.characters.count > 0 , "Error: String is not valid")
+        assert(string.count > 0 , "Error: String is not valid")
         return string.replacingOccurrences(of: "\"", with:"\\\"", options: NSString.CompareOptions.literal, range: nil)
     }
 
@@ -53,7 +53,7 @@ extension URLRequest {
         
         if let body: Data = self.httpBody , self.httpBody != nil {
             if var bodyDataString = String(data: body, encoding: String.Encoding.utf8) {
-                if bodyDataString.characters.count > 0 {
+                if bodyDataString.count > 0 {
                     bodyDataString = self.escapeQuotesInString(bodyDataString)
                     curlString.appendFormat(" -d \"%@\"", bodyDataString)
                 }

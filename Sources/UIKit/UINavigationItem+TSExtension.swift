@@ -31,7 +31,7 @@ public extension UINavigationItem {
     func ts_buttonItemAction(
         _ button: UIButton,
         position: ts_ButtonItemPosition,
-        action:@escaping (Void) -> Void)
+        action:@escaping () -> Void)
     {
         button.ts_addEventHandler(forControlEvent: .touchUpInside, handler: {
             action()
@@ -67,8 +67,8 @@ public extension UINavigationItem {
         var buttonWidth: CGFloat = 40
         if let aText = text {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            let attributes: [String : AnyObject] = [
-                NSFontAttributeName: button.titleLabel!.font,
+            let attributes: [NSAttributedStringKey : AnyObject] = [
+                .font: button.titleLabel!.font,
                 ]
             let size: CGSize = aText.boundingRect(
                 with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30),

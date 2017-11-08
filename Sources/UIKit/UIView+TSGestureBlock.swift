@@ -11,12 +11,12 @@ import Foundation
 import UIKit
 
 fileprivate class TSClosureWrapper : NSObject {
-    let _callback : (Void) -> Void
-    init(callback : @escaping (Void) -> Void) {
+    let _callback : () -> Void
+    init(callback : @escaping () -> Void) {
         _callback = callback
     }
     
-    func invoke() {
+    @objc func invoke() {
         _callback()
     }
 }
@@ -30,7 +30,7 @@ public extension UIView {
     ///
     /// - returns: The gesture.
     @discardableResult
-    func ts_tapped(callback: @escaping (Void) -> Void) -> UITapGestureRecognizer {
+    func ts_tapped(callback: @escaping () -> Void) -> UITapGestureRecognizer {
         self.isUserInteractionEnabled = true
         let wrapper = TSClosureWrapper(callback: callback)
         let gesture = UITapGestureRecognizer.init(target: wrapper, action: #selector(TSClosureWrapper.invoke))
@@ -45,7 +45,7 @@ public extension UIView {
     ///
     /// - returns: The gesture.
     @discardableResult
-    func ts_longPressed(callback: @escaping (Void) -> Void) -> UILongPressGestureRecognizer {
+    func ts_longPressed(callback: @escaping () -> Void) -> UILongPressGestureRecognizer {
         self.isUserInteractionEnabled = true
         let wrapper = TSClosureWrapper(callback: callback)
         let gesture = UILongPressGestureRecognizer.init(target: wrapper, action: #selector(TSClosureWrapper.invoke))
@@ -60,7 +60,7 @@ public extension UIView {
     ///
     /// - returns: The gesture.
     @discardableResult
-    func ts_pinched(callback: @escaping (Void) -> Void) -> UIPinchGestureRecognizer {
+    func ts_pinched(callback: @escaping () -> Void) -> UIPinchGestureRecognizer {
         self.isUserInteractionEnabled = true
         let wrapper = TSClosureWrapper(callback: callback)
         let gesture = UIPinchGestureRecognizer.init(target: wrapper, action: #selector(TSClosureWrapper.invoke))
@@ -75,7 +75,7 @@ public extension UIView {
     ///
     /// - returns: The gesture.
     @discardableResult
-    func ts_panned(callback: @escaping (Void) -> Void) -> UIPanGestureRecognizer {
+    func ts_panned(callback: @escaping () -> Void) -> UIPanGestureRecognizer {
         self.isUserInteractionEnabled = true
         let wrapper = TSClosureWrapper(callback: callback)
         let gesture = UIPanGestureRecognizer.init(target: wrapper, action: #selector(TSClosureWrapper.invoke))
@@ -90,7 +90,7 @@ public extension UIView {
     ///
     /// - returns: The gesture.
     @discardableResult
-    func ts_rotated(callback: @escaping (Void) -> Void) -> UIRotationGestureRecognizer {
+    func ts_rotated(callback: @escaping () -> Void) -> UIRotationGestureRecognizer {
         self.isUserInteractionEnabled = true
         let wrapper = TSClosureWrapper(callback: callback)
         let gesture = UIRotationGestureRecognizer.init(target: wrapper, action: #selector(TSClosureWrapper.invoke))
