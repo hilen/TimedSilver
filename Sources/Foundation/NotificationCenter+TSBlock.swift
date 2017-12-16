@@ -57,9 +57,7 @@ private var TSObservationRemoverKey: UnsafeRawPointer? = nil
 
 private func ts_observationRemoversForObject(_ object: AnyObject) -> NSMutableArray {
     if TSObservationRemoverKey == nil {
-        withUnsafePointer(to: &TSObservationRemoverKey) { pointer in
-            TSObservationRemoverKey = UnsafeRawPointer(pointer)
-        }
+        ObservationRemoverKey = withUnsafeMutablePointer(to: &ObservationRemoverKey) { UnsafeRawPointer($0) }
     }
     
     var retainedRemovers = objc_getAssociatedObject(object, TSObservationRemoverKey!) as! NSMutableArray?
