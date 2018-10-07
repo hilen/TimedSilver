@@ -22,13 +22,20 @@ extension UIControl {
      - parameter name:         music name
      - parameter controlEvent: controlEvent
      */
-    public func ts_addSoundName(_ name: String, forControlEvent controlEvent: UIControlEvents)  {
+    public func ts_addSoundName(_ name: String, forControlEvent controlEvent: UIControl.Event)  {
         let oldSoundKey: String = "\(controlEvent)"
         let oldSound: AVAudioPlayer = self.ts_sounds[oldSoundKey]!
         let selector = NSSelectorFromString("play")
         self.removeTarget(oldSound, action: selector, for: controlEvent)
         do {
-            try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryAmbient")
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+            } else {
+                // Fallback on earlier versions
+//                try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryAmbient")
+            }
+//
+            
             // Find the sound file.
             guard let soundFileURL = Bundle.main.url(forResource: name, withExtension: "") else {
                 assert(false, "File not exist")

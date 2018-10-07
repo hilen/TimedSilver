@@ -39,8 +39,8 @@ extension UIButton {
         }
         
         let relativeFrame = self.bounds
-        let hitFrame = UIEdgeInsetsInsetRect(relativeFrame, self.ts_touchInsets)
-        
+//        let hitFrame = UIEdgeInsetsInsetRect(relativeFrame, self.ts_touchInsets)
+        let hitFrame = relativeFrame.inset(by: self.ts_touchInsets)
         return hitFrame.contains(point)
     }
 }

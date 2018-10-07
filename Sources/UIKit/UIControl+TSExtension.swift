@@ -32,7 +32,7 @@ public extension UIControl {
      - parameter events:   UIControlEvents
      - parameter callback: callback
      */
-    func ts_addEventHandler(forControlEvent controlEvent: UIControlEvents, handler callback: @escaping () -> Void) {
+    func ts_addEventHandler(forControlEvent controlEvent: UIControl.Event, handler callback: @escaping () -> Void) {
         let wrapper = TSClosureWrapper(callback: callback)
         addTarget(wrapper, action:#selector(TSClosureWrapper.invoke), for: controlEvent)
         objc_setAssociatedObject(self, &AssociatedClosure, wrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

@@ -29,7 +29,7 @@ public extension String {
         let size: CGSize = self.boundingRect(
             with: constraintRect,
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font: font],
+            attributes: [NSAttributedString.Key.font: font],
             context: nil
             ).size
         return size
@@ -48,7 +48,7 @@ public extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font: font],
+            attributes: [NSAttributedString.Key.font: font],
             context: nil)
         return boundingBox.height
     }
@@ -65,7 +65,7 @@ public extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font: font],
+            attributes: [NSAttributedString.Key.font: font],
             context: nil)
         return boundingBox.width
     }
