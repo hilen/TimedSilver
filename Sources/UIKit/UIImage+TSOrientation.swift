@@ -25,38 +25,38 @@ public extension UIImage {
      */
     class func ts_fixImageOrientation(_ src:UIImage) -> UIImage {
         
-        if src.imageOrientation == UIImageOrientation.up {
+        if src.imageOrientation == UIImage.Orientation.up {
             return src
         }
         
         var transform: CGAffineTransform = CGAffineTransform.identity
         
         switch src.imageOrientation {
-        case UIImageOrientation.down, UIImageOrientation.downMirrored:
+        case UIImage.Orientation.down, UIImage.Orientation.downMirrored:
             transform = transform.translatedBy(x: src.size.width, y: src.size.height)
             transform = transform.rotated(by: CGFloat(Double.pi))
             break
-        case UIImageOrientation.left, UIImageOrientation.leftMirrored:
+        case UIImage.Orientation.left, UIImage.Orientation.leftMirrored:
             transform = transform.translatedBy(x: src.size.width, y: 0)
             transform = transform.rotated(by: CGFloat(Double.pi))
             break
-        case UIImageOrientation.right, UIImageOrientation.rightMirrored:
+        case UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
             transform = transform.translatedBy(x: 0, y: src.size.height)
             transform = transform.rotated(by: CGFloat(-Double.pi))
             break
-        case UIImageOrientation.up, UIImageOrientation.upMirrored:
+        case UIImage.Orientation.up, UIImage.Orientation.upMirrored:
             break
         }
         
         switch src.imageOrientation {
-        case UIImageOrientation.upMirrored, UIImageOrientation.downMirrored:
+        case UIImage.Orientation.upMirrored, UIImage.Orientation.downMirrored:
             transform.translatedBy(x: src.size.width, y: 0)
             transform.scaledBy(x: -1, y: 1)
             break
-        case UIImageOrientation.leftMirrored, UIImageOrientation.rightMirrored:
+        case UIImage.Orientation.leftMirrored, UIImage.Orientation.rightMirrored:
             transform.translatedBy(x: src.size.height, y: 0)
             transform.scaledBy(x: -1, y: 1)
-        case UIImageOrientation.up, UIImageOrientation.down, UIImageOrientation.left, UIImageOrientation.right:
+        case UIImage.Orientation.up, UIImage.Orientation.down, UIImage.Orientation.left, UIImage.Orientation.right:
             break
         }
         
@@ -65,7 +65,7 @@ public extension UIImage {
         ctx.concatenate(transform)
         
         switch src.imageOrientation {
-        case UIImageOrientation.left, UIImageOrientation.leftMirrored, UIImageOrientation.right, UIImageOrientation.rightMirrored:
+        case UIImage.Orientation.left, UIImage.Orientation.leftMirrored, UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
             ctx.draw(src.cgImage!, in: CGRect(x: 0, y: 0, width: src.size.height, height: src.size.width))
             break
         default:

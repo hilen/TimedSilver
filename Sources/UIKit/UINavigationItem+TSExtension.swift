@@ -59,15 +59,15 @@ public extension UINavigationItem {
      - returns: Item button
      */
     class func ts_itemButton(_ image: UIImage? = nil, text: String? = nil) -> UIButton {
-        let button: UIButton = UIButton(type: UIButtonType.custom)
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
         if let aImage = image {
-            button.setImage(aImage, for: UIControlState())
+            button.setImage(aImage, for: UIControl.State())
         }
         
         var buttonWidth: CGFloat = 40
         if let aText = text {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            let attributes: [NSAttributedStringKey : AnyObject] = [
+            let attributes: [NSAttributedString.Key : AnyObject] = [
                 .font: button.titleLabel!.font,
                 ]
             let size: CGSize = aText.boundingRect(
@@ -78,7 +78,7 @@ public extension UINavigationItem {
                 ).size
             
             buttonWidth = size.width
-            button.setTitle(aText, for: UIControlState())
+            button.setTitle(aText, for: UIControl.State())
         }
         button.imageView!.contentMode = .scaleAspectFit;
         button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: 30)

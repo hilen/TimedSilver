@@ -47,8 +47,8 @@ public extension UIViewController {
             return
         }
         
-        let button: UIButton = UIButton(type: UIButtonType.custom)
-        button.setImage(backImage, for: UIControlState())
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(backImage, for: UIControl.State())
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 30)
         button.imageView!.contentMode = .scaleAspectFit;
         button.contentHorizontalAlignment = .left

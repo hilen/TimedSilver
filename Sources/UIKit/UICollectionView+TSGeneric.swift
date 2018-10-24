@@ -58,7 +58,7 @@ public extension UICollectionView {
     func ts_registerHeaderNib<T: UICollectionReusableView>(_ aClass: T.Type) {
         let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
+        self.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: name)
     }
     
     /**
@@ -68,7 +68,7 @@ public extension UICollectionView {
      */
     func ts_registerHeaderClass<T: UICollectionReusableView>(_ aClass: T.Type) {
         let name = String(describing: aClass)
-        self.register(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: name)
+        self.register(aClass, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: name)
     }
     
     /**
@@ -82,7 +82,7 @@ public extension UICollectionView {
     func ts_dequeueReusableHeader<T: UICollectionReusableView>(_ aClass: T.Type, forIndexPath indexPath: IndexPath) -> T! {
         let name = String(describing: aClass)
         guard let view = dequeueReusableSupplementaryView(
-            ofKind: UICollectionElementKindSectionHeader,
+            ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: name,
             for: indexPath) as? T else {
                 fatalError("\(name) is not registed")
@@ -99,7 +99,7 @@ public extension UICollectionView {
     func ts_registerFooterNib<T: UICollectionReusableView>(_ aClass: T.Type) {
         let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
-        self.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
+        self.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: name)
     }
     
     /**
@@ -109,7 +109,7 @@ public extension UICollectionView {
      */
     func ts_registerFooterClass<T: UICollectionReusableView>(_ aClass: T.Type) {
         let name = String(describing: aClass)
-        self.register(aClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: name)
+        self.register(aClass, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: name)
     }
     
     /**
@@ -123,7 +123,7 @@ public extension UICollectionView {
     func ts_dequeueReusableFooter<T: UICollectionReusableView>(_ aClass: T.Type, forIndexPath indexPath: IndexPath) -> T! {
         let name = String(describing: aClass)
         guard let view = dequeueReusableSupplementaryView(
-            ofKind: UICollectionElementKindSectionFooter,
+            ofKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: name,
             for: indexPath) as? T else {
                 fatalError("\(name) is not registed")
