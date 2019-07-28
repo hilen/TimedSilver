@@ -19,6 +19,7 @@ public extension NSRange {
      - returns: NSRange
      */
     init(ts_location:Int, ts_length:Int) {
+        self.init()
         self.location = ts_location
         self.length = ts_length
     }
@@ -32,6 +33,7 @@ public extension NSRange {
      - returns: NSRange
      */
     init(_ ts_location:Int, _ ts_length:Int) {
+        self.init()
         self.location = ts_location
         self.length = ts_length
     }
@@ -44,6 +46,7 @@ public extension NSRange {
      - returns: NSRange
      */
     init(ts_range:Range <Int>) {
+        self.init()
         self.location = ts_range.lowerBound
         self.length = ts_range.upperBound - ts_range.lowerBound
     }
@@ -56,6 +59,7 @@ public extension NSRange {
      - returns: NSRange
      */
     init(_ ts_range:Range <Int>) {
+        self.init()
         self.location = ts_range.lowerBound
         self.length = ts_range.upperBound - ts_range.lowerBound
     }

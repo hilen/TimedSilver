@@ -4,6 +4,17 @@ All about swift extension 😉
 
 ## Installation
 
+Swift 5.0
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.0'
+use_frameworks!
+
+target 'YourApp' do
+pod 'TimedSilver', '1.2.0'
+end
+```
+
 Swift 4.0
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -12,18 +23,6 @@ use_frameworks!
 
 target 'YourApp' do
     pod 'TimedSilver', '1.1.0'
-end
-```
-
-
-Swift 3.0
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-target 'YourApp' do
-    pod 'TimedSilver', '1.0.0'
 end
 ```
 

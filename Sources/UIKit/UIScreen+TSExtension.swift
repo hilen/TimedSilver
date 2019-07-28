@@ -33,7 +33,7 @@ public extension UIScreen {
             return CGSize.zero
         }
         let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
-        let isLand: Bool = UIInterfaceOrientationIsLandscape(app.statusBarOrientation)
+        let isLand: Bool = app.statusBarOrientation.isLandscape
         return (systemVersion > 8.0 && isLand) ? UIScreen.ts_swapSize(self.ts_size) : self.ts_size
     }
     
@@ -71,7 +71,8 @@ public extension UIScreen {
         guard let app = UIApplication.ts_sharedApplication() else {
             return 0
         }
-        if UIInterfaceOrientationIsPortrait(app.statusBarOrientation) {
+        
+        if app.statusBarOrientation.isLandscape {
             return UIScreen.main.bounds.size.height - app.statusBarFrame.height
         } else {
             return UIScreen.main.bounds.size.width - app.statusBarFrame.height

@@ -16,7 +16,7 @@ extension UINavigationController {
      - parameter controller: target viewController
      - parameter transition: UIViewAnimationTransition
      */
-    public func ts_pushViewController(_ controller: UIViewController, transition: UIViewAnimationTransition) {
+    public func ts_pushViewController(_ controller: UIViewController, transition: UIView.AnimationTransition) {
         UIView.beginAnimations(nil, context: nil)
         self.pushViewController(controller, animated: false)
         UIView.setAnimationDuration(0.5)
@@ -33,7 +33,7 @@ extension UINavigationController {
      
      - returns: UIViewController
      */
-    public func ts_popViewController(_ controller: UIViewController, transition: UIViewAnimationTransition) -> UIViewController {
+    public func ts_popViewController(_ controller: UIViewController, transition: UIView.AnimationTransition) -> UIViewController {
         UIView.beginAnimations(nil, context: nil)
         let controller = self.popViewController(animated: false)
         UIView.setAnimationDuration(0.5)

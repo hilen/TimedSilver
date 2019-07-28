@@ -20,7 +20,7 @@ public extension UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = self.lineBreakMode
         paragraphStyle.alignment = self.textAlignment
-        let attributes: [NSAttributedStringKey : AnyObject] = [
+        let attributes: [NSAttributedString.Key : AnyObject] = [
             .font: self.font,
             .paragraphStyle: paragraphStyle]
         let contentSize: CGSize = self.text!.boundingRect(
@@ -40,7 +40,7 @@ public extension UILabel {
      */
     func ts_setFrameWithString(_ string: String, width: CGFloat) {
         self.numberOfLines = 0
-        let attributes: [NSAttributedStringKey : AnyObject] = [
+        let attributes: [NSAttributedString.Key : AnyObject] = [
             .font: self.font,
         ]
         let resultSize: CGSize = string.boundingRect(

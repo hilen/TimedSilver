@@ -35,7 +35,7 @@ public extension UIImage {
         context?.draw(self.cgImage!, in: rect)
         // Create gradient
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let colors = gradientColors.map {(color: UIColor) -> AnyObject! in return color.cgColor as AnyObject! } as NSArray
+        let colors = gradientColors.map {(color: UIColor) -> AnyObject? in return color.cgColor as AnyObject? } as NSArray
         let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: nil)
         // Apply gradient
         context?.clip(to: rect, mask: self.cgImage!)
@@ -194,7 +194,7 @@ public extension UIImage {
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         var effectImage = self
         let hasBlur = blurRadius > CGFloat(Float.ulpOfOne)
-        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
+        let hasSaturationChange = abs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
         if (hasBlur || hasSaturationChange) {
             
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)

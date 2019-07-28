@@ -25,7 +25,7 @@ public extension UIImage {
      */
     class func ts_fixImageOrientation(_ src:UIImage) -> UIImage {
         
-        if src.imageOrientation == UIImageOrientation.up {
+        if src.imageOrientation == UIImage.Orientation.up {
             return src
         }
         
@@ -46,6 +46,8 @@ public extension UIImage {
             break
         case UIImageOrientation.up, UIImageOrientation.upMirrored:
             break
+        @unknown default:
+            break
         }
         
         switch src.imageOrientation {
@@ -57,6 +59,8 @@ public extension UIImage {
             transform.translatedBy(x: src.size.height, y: 0)
             transform.scaledBy(x: -1, y: 1)
         case UIImageOrientation.up, UIImageOrientation.down, UIImageOrientation.left, UIImageOrientation.right:
+            break
+        @unknown default:
             break
         }
         
